@@ -1,17 +1,17 @@
-import { JoinColumn, ManyToMany, ManyToOne } from "typeorm";
-import { BaseEntity } from "./base.entity";
-import { Admin } from "src/modules/admin/admin.entity";
+import { JoinColumn, ManyToOne } from 'typeorm';
+import { BaseEntity } from './base.entity';
+import { Admin } from 'src/modules/admin/admin.entity';
 
-export class BaseCreatedByEntity extends BaseEntity {
-    @ManyToMany(() => Admin)
+export abstract class BaseCreatedByEntity extends BaseEntity {
+    @ManyToOne(() => Admin)
     @JoinColumn()
-    createdBy: Admin
+    createdBy: Admin;
 
     @ManyToOne(() => Admin)
     @JoinColumn()
-    updateBy: Admin
+    updateBy: Admin;
 
     @ManyToOne(() => Admin)
     @JoinColumn()
-    deletedBy: Admin
+    deletedBy: Admin;
 }

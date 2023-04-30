@@ -1,17 +1,22 @@
-import { BaseCreatedAnUpdatedEntity } from "src/common/entities";
-import { Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ProductDetail } from "./product-detail.entity";
-import { Media } from "src/modules/medias/media.entity";
+import { BaseCreatedAnUpdatedEntity } from 'src/common/entities';
+import {
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { ProductDetail } from './product-detail.entity';
+import { Media } from 'src/modules/medias/media.entity';
 
-@Entity() 
+@Entity()
 export class ProductDetailMedia extends BaseCreatedAnUpdatedEntity {
-    @PrimaryGeneratedColumn()
-    id: number; 
+    @ManyToOne(() => ProductDetail, (productDetail) => productDetail.medias, {
+        onDelete: 'NO ACTION',
+    })
+    productDetailId: ProductDetail;
 
-    @ManyToOne(() => ProductDetail, (productDetail) => productDetail.medias)
-    productDetailId: ProductDetail
-
-    @OneToOne(() => Media)
+    @OneToOne(() => Media, { onDelete: 'CASCADE', orphanedRowAction: 'delete' })
     @JoinColumn()
-    mediaId: Media 
+    mediaId: Media;
 }

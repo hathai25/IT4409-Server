@@ -1,2 +1,2 @@
 export * from './base.entity';
-export * from './baseCreatedBy.entity'
+export * from './baseCreatedBy.entity';

@@ -3,7 +3,7 @@ import { TransationsService } from './transactions.service';
 import { TransationsController } from './transactions.controller';
 
 @Module({
-  providers: [TransationsService],
-  controllers: [TransationsController]
+    providers: [TransationsService],
+    controllers: [TransationsController],
 })
 export class TransationsModule {}

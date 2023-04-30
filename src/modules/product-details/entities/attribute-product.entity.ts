@@ -1,11 +1,11 @@
-import { BaseCreatedByEntity } from "src/common/entities";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IsNotEmpty, IsString } from 'class-validator';
+import { BaseEntity } from 'src/common/entities';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class AttributeProduct extends BaseCreatedByEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
+export class AttributeProduct extends BaseEntity {
     @Column()
+    @IsString()
+    @IsNotEmpty()
     name: string;
 }

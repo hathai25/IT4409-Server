@@ -1,35 +1,47 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany,  OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Category } from "../categorys/category.entity";
-import { Media } from "../medias/media.entity";
-import { BaseCreatedByEntity } from "src/common/entities";
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    JoinTable,
+    ManyToMany,
+    OneToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Category } from '../categorys/category.entity';
+import { Media } from '../medias/media.entity';
+import { BaseCreatedByEntity } from 'src/common/entities';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 @Entity()
 export class Product extends BaseCreatedByEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
     @Column()
+    @IsString()
+    @IsNotEmpty()
     name: string;
 
-    @Column()
+    @Column({ nullable: true })
     description: string;
 
     @Column()
+    @IsNumber()
     price: number;
 
-    @Column()
+    @Column({ default: 0 })
+    @IsNumber()
     sellOfQuantity: number;
 
-    @Column()
+    @Column({ default: 5 })
+    @IsNumber()
     rate: number;
 
-    @OneToOne(() => Media)
+    @OneToOne(() => Media, {
+        onDelete: 'SET NULL',
+        orphanedRowAction: 'nullify',
+    })
     @JoinColumn()
-    thumbnail: Media
-    
+    thumbnail: Media;
+
     @ManyToMany(() => Category)
     @JoinTable()
     categories: Category[];
-
-
 }
