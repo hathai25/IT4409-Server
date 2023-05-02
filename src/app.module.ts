@@ -34,6 +34,7 @@ import { Review } from './modules/reviews/entities/review.entity';
 import { ReviewMedia } from './modules/reviews/entities/reivew-media';
 import { Slider } from './modules/sliders/slider.entity';
 import { Transaction } from './modules/transactions/transaction.entity';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
     imports: [
@@ -83,6 +84,7 @@ import { Transaction } from './modules/transactions/transaction.entity';
         CategorysModule,
         CartItemsModule,
         AdminModule,
+        AuthModule
     ],
     controllers: [AppController],
     providers: [AppService],
