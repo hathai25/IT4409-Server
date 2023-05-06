@@ -27,6 +27,7 @@ export class User extends BaseEntity {
     address: Address[];
 
     @BeforeInsert()
+    @BeforeUpdate()
     async hashPassword() {
         this.password = await brcyptHelper.hash(this.password);
     }

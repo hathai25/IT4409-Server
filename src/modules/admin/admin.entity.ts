@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsString, MinLength } from 'class-validator';
-import { BaseCreatedByEntity, BaseEntity } from 'src/common/entities';
+import {  BaseEntity } from 'src/common/entities';
 import { Role } from 'src/common/enum';
 import { brcyptHelper } from 'src/common/helper/bcrypt.helper';
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
