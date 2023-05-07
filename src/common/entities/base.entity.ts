@@ -1,4 +1,3 @@
-
 import {
     BeforeRecover,
     BeforeSoftRemove,
@@ -18,7 +17,7 @@ export abstract class BaseCreatedAnUpdatedEntity {
     updateAt: Date;
 }
 
-export  class BaseEntity extends BaseCreatedAnUpdatedEntity {
+export class BaseEntity extends BaseCreatedAnUpdatedEntity {
     @Column({ default: false })
     deleted: boolean;
     @DeleteDateColumn()

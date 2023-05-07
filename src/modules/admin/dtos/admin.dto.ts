@@ -1,5 +1,5 @@
-import { Exclude, Expose, Type } from "class-transformer";
-import { Role } from "src/common/enum";
+import { Exclude, Expose, Type } from 'class-transformer';
+import { Role } from 'src/common/enum';
 
 export class AdminDto {
     @Expose()
@@ -12,5 +12,5 @@ export class AdminDto {
     password: string;
 
     @Expose()
-    roles: Role[]
+    roles: Role[];
 }

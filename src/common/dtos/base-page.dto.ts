@@ -1,11 +1,11 @@
-import { IsEnum, IsNumber, IsString } from "class-validator";
+import { IsEnum, IsNumber, IsString } from 'class-validator';
 
 export enum SortType {
-    ASC = 'ASC', 
-    DESC = 'DESC'
+    ASC = 'ASC',
+    DESC = 'DESC',
 }
 
-export  class BasePageDto {
+export class BasePageDto {
     @IsNumber()
     readonly page: number;
 
@@ -16,7 +16,7 @@ export  class BasePageDto {
     readonly sort: SortType;
 
     @IsString()
-    readonly sortBy: string
+    readonly sortBy: string;
 
     constructor(page = 1, limit = 10, sort = SortType.ASC, sortBy = 'id') {
         this.page = page;
@@ -26,6 +26,6 @@ export  class BasePageDto {
     }
 
     get skip() {
-        return (this.page - 1) * this.limit
+        return (this.page - 1) * this.limit;
     }
 }

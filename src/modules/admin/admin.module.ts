@@ -8,11 +8,11 @@ import { JwtAdminStrategy } from './strategies/jwt-admin.strategy';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Admin]), 
+        TypeOrmModule.forFeature([Admin]),
         JwtModule.register({
             secret: process.env.ADMIN_SECRET_KEY || 'it4409-admin-team36',
-            signOptions: { expiresIn: process.env.ADMIN_JWT_EXPIRES || '1h'}
-        })
+            signOptions: { expiresIn: process.env.ADMIN_JWT_EXPIRES || '1h' },
+        }),
     ],
     providers: [AdminService, JwtAdminStrategy],
     controllers: [AdminController],

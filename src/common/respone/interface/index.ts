@@ -1,1 +1,1 @@
-export * from './respone.interface'
+export * from './respone.interface';

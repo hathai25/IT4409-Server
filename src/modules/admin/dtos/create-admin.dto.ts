@@ -1,5 +1,12 @@
-import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
-import { Role } from "src/common/enum";
+import {
+    IsArray,
+    IsEmail,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+    MinLength,
+} from 'class-validator';
+import { Role } from 'src/common/enum';
 
 export class CreateAdminDto {
     @IsEmail()
@@ -12,5 +19,5 @@ export class CreateAdminDto {
 
     @IsOptional()
     @IsArray()
-    roles?: Role[]
+    roles?: Role[];
 }

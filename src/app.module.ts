@@ -84,7 +84,7 @@ import { AuthModule } from './modules/auth/auth.module';
         CategorysModule,
         CartItemsModule,
         AdminModule,
-        AuthModule
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],

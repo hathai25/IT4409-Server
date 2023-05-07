@@ -1,5 +1,5 @@
-import { IsArray, IsEmail, IsOptional } from "class-validator";
-import { Role } from "src/common/enum";
+import { IsArray, IsEmail, IsOptional } from 'class-validator';
+import { Role } from 'src/common/enum';
 
 export class UpdateAdminDto {
     @IsOptional()
@@ -8,5 +8,5 @@ export class UpdateAdminDto {
 
     @IsOptional()
     @IsArray()
-    roles?: Role[]
+    roles?: Role[];
 }

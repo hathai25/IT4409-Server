@@ -1,2 +1,2 @@
-export * from './jwt-admin.gurad'
-export * from './roles.guard'
+export * from './jwt-admin.gurad';
+export * from './roles.guard';
