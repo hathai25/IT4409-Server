@@ -5,8 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Admin } from './admin.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtAdminStrategy } from './strategies/jwt-admin.strategy';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './guards/roles.guard';
 
 @Module({
     imports: [
