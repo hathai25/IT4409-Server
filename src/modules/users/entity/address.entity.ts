@@ -1,7 +1,7 @@
 import { BaseCreatedAnUpdatedEntity } from 'src/common/entities';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { User } from './users.entity';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
 @Entity()
 export class Address extends BaseCreatedAnUpdatedEntity {
@@ -25,10 +25,19 @@ export class Address extends BaseCreatedAnUpdatedEntity {
     @IsNotEmpty()
     detail: string;
 
+    @Column({ nullable: false })
+    @IsString()
+    @IsNotEmpty()
+    fullname: string;
+
+    @Column({ nullable: false })
+    @IsPhoneNumber()
+    phone: string;
+
     @ManyToOne(() => User, (user) => user.address, {
         onDelete: 'CASCADE',
         orphanedRowAction: 'delete',
     })
     @JoinColumn()
-    userId: User;
+    userId: User | number;
 }

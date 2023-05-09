@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export enum SortType {
     ASC = 'ASC',
@@ -6,15 +6,19 @@ export enum SortType {
 }
 
 export class BasePageDto {
+    @IsOptional()
     @IsNumber()
     readonly page: number;
 
+    @IsOptional()
     @IsNumber()
     readonly limit: number;
 
+    @IsOptional()
     @IsEnum(SortType)
     readonly sort: SortType;
 
+    @IsOptional()
     @IsString()
     readonly sortBy: string;
 
