@@ -30,7 +30,7 @@ export class User extends BaseEntity {
     @IsPhoneNumber()
     phone?: string;
 
-    @Column()
+    @Column({ nullable: true }) //should be nullable
     @IsOptional()
     @IsUrl()
     avatar?: string;
