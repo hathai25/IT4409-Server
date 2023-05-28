@@ -16,7 +16,9 @@ export class Admin extends BaseEntity {
     @MinLength(6)
     password: string;
 
-    @Column({ type: 'simple-array', default: `${Role.Admin}` })
+    @Column({ type: 'simple-array',
+        // default: `${Role.Admin}`
+    })
     @IsArray()
     roles: Role[];
 
