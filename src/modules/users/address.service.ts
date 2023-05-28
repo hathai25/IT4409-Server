@@ -14,8 +14,7 @@ import { UpdateAddressDto } from './dtos/address/update-address.dto';
 @Injectable()
 export class AddressService {
     constructor(
-        @InjectRepository(Address)
-        private readonly addressRepository: Repository<Address>,
+        @InjectRepository(Address) private readonly addressRepository: Repository<Address>,
         private readonly usersService: UsersService,
     ) {}
 

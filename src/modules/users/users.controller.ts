@@ -60,8 +60,8 @@ export class UsersController {
     @UseGuards(JwtAuthGuard)
     @Get('/profile')
     async getProfileUser(@Req() req: any): Promise<ISuccessRespone<UserDto>> {
-        if (!!req?.user?.userId) {
-            throw new BadRequestException('no data id user to update');
+        if (!req?.user?.userId) {
+            throw new BadRequestException('no data id user to get profile');
         }
         const user = await this.usersService.findUserById(req?.user?.userId);
         return dataToRespone(UserDto)(user);
