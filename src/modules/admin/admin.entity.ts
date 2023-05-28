@@ -1,5 +1,6 @@
-import { IsEmail, IsEnum, IsString, MinLength } from 'class-validator';
-import {  BaseEntity } from 'src/common/entities';
+import { Type } from 'class-transformer';
+import { IsArray, IsEmail, IsEnum, IsString, MinLength } from 'class-validator';
+import { BaseEntity } from 'src/common/entities';
 import { Role } from 'src/common/enum';
 import { brcyptHelper } from 'src/common/helper/bcrypt.helper';
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
@@ -15,9 +16,11 @@ export class Admin extends BaseEntity {
     @MinLength(6)
     password: string;
 
-    @Column({ default: Role.Admin })
-    @IsEnum(Role)
-    role: Role;
+    @Column({ type: 'simple-array',
+        // default: `${Role.Admin}`
+    })
+    @IsArray()
+    roles: Role[];
 
     @BeforeInsert()
     @BeforeUpdate()

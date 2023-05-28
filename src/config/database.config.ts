@@ -1,4 +1,3 @@
-
 export const databaseConfig = () => ({
     type: 'mysql',
     host: process.env.DB_HOST || 'localhost',

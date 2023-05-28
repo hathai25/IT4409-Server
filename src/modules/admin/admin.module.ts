@@ -5,16 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Admin } from './admin.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtAdminStrategy } from './strategies/jwt-admin.strategy';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './guards/roles.guard';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Admin]), 
+        TypeOrmModule.forFeature([Admin]),
         JwtModule.register({
             secret: process.env.ADMIN_SECRET_KEY || 'it4409-admin-team36',
-            signOptions: { expiresIn: process.env.ADMIN_JWT_EXPIRES || '1h'}
-        })
+            signOptions: { expiresIn: process.env.ADMIN_JWT_EXPIRES || '1h' },
+        }),
     ],
     providers: [AdminService, JwtAdminStrategy],
     controllers: [AdminController],

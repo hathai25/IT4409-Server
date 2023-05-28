@@ -1,4 +1,11 @@
-import { IsEmail, IsPhoneNumber, IsString, MinLength } from 'class-validator';
+import {
+    IsEmail,
+    IsOptional,
+    IsPhoneNumber,
+    IsString,
+    IsUrl,
+    MinLength,
+} from 'class-validator';
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 import { brcyptHelper } from 'src/common/helper/bcrypt.helper';
 import { Address } from './address.entity';
@@ -15,16 +22,21 @@ export class User extends BaseEntity {
     @MinLength(6)
     password: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: false, unique: true })
     @IsString()
     username: string;
 
     @Column({ nullable: true })
     @IsPhoneNumber()
-    phone: string;
+    phone?: string;
+
+    @Column({ nullable: true }) //should be nullable
+    @IsOptional()
+    @IsUrl()
+    avatar?: string;
 
     @OneToMany(() => Address, (address) => address.userId)
-    address: Address[];
+    address?: Address[];
 
     @BeforeInsert()
     @BeforeUpdate()
