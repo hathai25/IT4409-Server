@@ -51,7 +51,7 @@ export class CategorysController {
     
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManagePage)
-    @Patch(':id')
+    @Patch('trash/:id')
     async softDeleteCategory(@Param('id') id: number, @Req() req: any): Promise<ISuccessRespone<CategoryDto>> {
         if(!req.user.adminId) {
             throw  new BadRequestException('not admin id in the request');
@@ -62,7 +62,7 @@ export class CategorysController {
 
     @UseGuards(JwtAdminGuard)
     @Roles(Role.ManagePage)
-    @Patch(':id') 
+    @Patch('trash/restore/:id') 
     async recoveryCategoryById(@Param('id') id: number): Promise<ISuccessRespone<CategoryDto>> {
         const recoveryCategory = await this.categorysService.restoreSoftDeleteCategoryById(id)
         return dataToRespone(CategoryDto)(recoveryCategory) 
