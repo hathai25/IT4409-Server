@@ -1,53 +1,78 @@
-import { ClassConstructor, ClassTransformOptions, plainToClass } from "class-transformer";
-import { IErrorRespone, IHttpError, ISuccessListRespone, ISuccessRespone } from "./interface";
-import { plainToClassFromExist } from "class-transformer";
+import {
+    ClassConstructor,
+    ClassTransformOptions,
+    plainToClass,
+} from 'class-transformer';
+import {
+    IErrorRespone,
+    IHttpError,
+    ISuccessListRespone,
+    ISuccessRespone,
+} from './interface';
+import { plainToClassFromExist } from 'class-transformer';
 
-export function  dataToInstance<T>(cls: ClassConstructor<T>, data: any, options?: {}): T {
-    if(!cls ||!data) return undefined;
-    let instance = new cls()
+export function dataToInstance<T>(
+    cls: ClassConstructor<T>,
+    data: any,
+    options?: {},
+): T {
+    if (!cls || !data) return undefined;
+    let instance = new cls();
 
-    instance = plainToClassFromExist(instance, data, options)
+    instance = plainToClassFromExist(instance, data, options);
 
-    return instance
+    return instance;
 }
 
-export function plainToInstance<T, V>(cls: ClassConstructor<T>, data: V, options?: ClassTransformOptions): T {
+export function plainToInstance<T, V>(
+    cls: ClassConstructor<T>,
+    data: V,
+    options?: ClassTransformOptions,
+): T {
     if (!cls || !data) return undefined;
 
-    return plainToClass(cls, data, options)
+    return plainToClass(cls, data, options);
 }
 
-export function dataToRespone<T>(cls: ClassConstructor<T>, options?: ClassTransformOptions): (data: any) => ISuccessRespone<T> {
-     
-    options = options || {excludeExtraneousValues: true};
-    
-    return ((data: any) => {
-        data = plainToClass(cls, data, options )
+export function dataToRespone<T>(
+    cls: ClassConstructor<T>,
+    options?: ClassTransformOptions,
+): (data: any) => ISuccessRespone<T> {
+    options = options || { excludeExtraneousValues: true };
+
+    return (data: any) => {
+        data = plainToClass(cls, data, options);
         return {
             message: 'success',
-            data: data
-        }
-    })
+            data: data,
+        };
+    };
 }
 
-export function arrDataToRespone<T>(cls: ClassConstructor<T>, options?: ClassTransformOptions): (data: any, totalItem: number) => ISuccessListRespone<T> {
-    options = options || {excludeExtraneousValues: true};
+export function arrDataToRespone<T>(
+    cls: ClassConstructor<T>,
+    options?: ClassTransformOptions,
+): (data: any, totalItem: number) => ISuccessListRespone<T> {
+    options = options || { excludeExtraneousValues: true };
 
-    return ((data:any, totalItem: number) => {
-        data = plainToClass(cls, data, options)
+    return (data: any, totalItem: number) => {
+        data = plainToClass(cls, data, options);
         return {
             message: 'success',
             data: {
                 items: data,
-                totalItems: totalItem
-            }
-        }
-    })
+                totalItems: totalItem,
+            },
+        };
+    };
 }
 
-export function errToRespone(errors: IHttpError[], message: string): IErrorRespone {
+export function errToRespone(
+    errors: IHttpError[],
+    message: string,
+): IErrorRespone {
     return {
         message: message,
-        errors: errors
-    }
-} 
+        errors: errors,
+    };
+}

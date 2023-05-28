@@ -3,14 +3,11 @@ import {
     Column,
     Entity,
     JoinColumn,
-    JoinTable,
-    ManyToMany,
     ManyToOne,
     OneToMany,
 } from 'typeorm';
 import { Admin } from '../admin/admin.entity';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
-import { Product } from '../products/product.entity';
+import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
 
 @Entity()
 export class Category extends BaseEntity {
@@ -24,6 +21,10 @@ export class Category extends BaseEntity {
     @IsNotEmpty()
     description: string;
 
+    @Column({default:1})
+    @IsNumber()
+    order: number;
+
     @OneToMany(() => Category, (category) => category.parentCategory)
     childCategory: Category[];
 
@@ -32,12 +33,16 @@ export class Category extends BaseEntity {
         orphanedRowAction: 'disable',
     })
     @JoinColumn()
-    parentCategory: Category;
+    parentCategory: Category | number | null;
 
     @ManyToOne(() => Admin, { onDelete: 'NO ACTION' })
     @JoinColumn()
-    createdBy: Admin;
+    createdBy: Admin|number;
+
+    @ManyToOne(() => Admin, { onDelete: 'NO ACTION' })
+    @JoinColumn()
+    updateBy: Admin|number;
 
     @ManyToOne(() => Admin)
-    deletedBy: Admin;
+    deletedBy: Admin|number;
 }
