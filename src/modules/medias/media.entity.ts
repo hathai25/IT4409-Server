@@ -16,21 +16,13 @@ export class Media {
     @Column()
     @IsString()
     @MaxLength(50)
-    name: string;
-
-    @Column({ nullable: true })
-    @IsString()
     description: string;
 
     @Column()
     @IsEnum(MediaType)
     type: MediaType;
 
-    @Column()
-    @IsNumber()
-    size: number;
-
-    @Column()
+    @Column({unique: true})
     @IsString()
     @IsNotEmpty()
     url: string;
