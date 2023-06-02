@@ -61,7 +61,7 @@ export class UsersController {
     @Get('/profile')
     async getProfileUser(@Req() req: any): Promise<ISuccessRespone<UserDto>> {
         if (!req?.user?.userId) {
-            throw new BadRequestException('no data id user to update');
+            throw new BadRequestException('no data id user to get profile');
         }
         const user = await this.usersService.findUserById(req?.user?.userId);
         return dataToRespone(UserDto)(user);

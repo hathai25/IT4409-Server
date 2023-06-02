@@ -4,11 +4,11 @@ import {
     JoinColumn,
     ManyToOne,
     OneToOne,
-    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Media } from '../medias/media.entity';
 import { Admin } from '../admin/admin.entity';
 
+// sửa lại cho hợp lí
 @Entity()
 export class Slider extends BaseEntity {
     @OneToOne(() => Media, { onDelete: 'CASCADE', orphanedRowAction: 'delete' })
