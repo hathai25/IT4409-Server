@@ -73,7 +73,7 @@ export class UsersController {
         @Req() req: any,
         @Body() updateUserDto: UpdateUserDto,
     ): Promise<ISuccessRespone<UserDto>> {
-        if (!!req?.user?.userId) {
+        if (!req?.user?.userId) {
             throw new BadRequestException('no data id user to update');
         }
         const updateUser = await this.usersService.updateUserById(

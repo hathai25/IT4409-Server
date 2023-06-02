@@ -14,7 +14,7 @@ export class UpdateUserDto {
     readonly username?: string;
 
     @IsOptional()
-    @IsPhoneNumber()
+    @IsPhoneNumber('VN')
     readonly phone?: string;
 
     @IsOptional()
