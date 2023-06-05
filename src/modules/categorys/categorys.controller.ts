@@ -33,7 +33,7 @@ export class CategorysController {
         return arrDataToRespone(CategoryDto)(categories, categories.length);
     }
 
-    @UseGuards(JwtAdminGuard)
+    @UseGuards(JwtAdminGuard,RolesGuard)
     @Roles(Role.ManagePage)
     @Post()
     async createCategory(
@@ -50,7 +50,7 @@ export class CategorysController {
         return dataToRespone(CategoryDto)(newCategory);
     }
 
-    @UseGuards(JwtAdminGuard)
+    @UseGuards(JwtAdminGuard,RolesGuard)
     @Roles(Role.ManagePage)
     @Patch(':id')
     async updateCategory(
@@ -69,7 +69,7 @@ export class CategorysController {
         return dataToRespone(CategoryDto)(updateCategory);
     }
 
-    @UseGuards(JwtAdminGuard)
+    @UseGuards(JwtAdminGuard,RolesGuard)
     @Roles(Role.ManagePage)
     @Delete(':id')
     async destroyCategoryById(
@@ -99,7 +99,7 @@ export class CategorysController {
         return dataToRespone(CategoryDto)(deleteCategory);
     }
 
-    @UseGuards(JwtAdminGuard)
+    @UseGuards(JwtAdminGuard,RolesGuard)
     @Roles(Role.ManagePage)
     @Patch('trash/restore/:id')
     async recoveryCategoryById(
