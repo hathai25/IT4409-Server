@@ -5,7 +5,6 @@ import {
     JoinTable,
     ManyToMany,
     OneToOne,
-    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from '../categorys/category.entity';
 import { Media } from '../medias/media.entity';
@@ -39,7 +38,7 @@ export class Product extends BaseCreatedByEntity {
         orphanedRowAction: 'nullify',
     })
     @JoinColumn()
-    thumbnail: Media;
+    thumbnail: Media | number;
 
     @ManyToMany(() => Category)
     @JoinTable()

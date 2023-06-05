@@ -1,7 +1,6 @@
-import { Expose } from "class-transformer";
-import { IsUrl } from "class-validator";
-import { MediaType } from "src/common/enum";
-
+import { Expose } from 'class-transformer';
+import { IsUrl } from 'class-validator';
+import { MediaType } from 'src/common/enum';
 
 export class MediaDto {
     @Expose()
@@ -11,7 +10,7 @@ export class MediaDto {
     description: string;
 
     @Expose()
-    type: MediaType
+    type: MediaType;
 
     @Expose()
     @IsUrl()

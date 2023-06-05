@@ -5,10 +5,9 @@ import {
     Entity,
     ManyToOne,
     OneToMany,
-    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductDetailMedia } from './product-detail-media.entity';
-import { IsIn, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {  IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 @Entity()
 export class ProductDetail extends BaseCreatedByEntity {

@@ -4,7 +4,6 @@ import {
     JoinColumn,
     ManyToOne,
     OneToOne,
-    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductDetail } from './product-detail.entity';
 import { Media } from 'src/modules/medias/media.entity';

@@ -5,13 +5,13 @@ import { Admin } from 'src/modules/admin/admin.entity';
 export abstract class BaseCreatedByEntity extends BaseEntity {
     @ManyToOne(() => Admin)
     @JoinColumn()
-    createdBy: Admin;
+    createdBy: Admin | number;
 
     @ManyToOne(() => Admin)
     @JoinColumn()
-    updateBy: Admin;
+    updateBy: Admin | number;
 
     @ManyToOne(() => Admin)
     @JoinColumn()
-    deletedBy: Admin;
+    deletedBy: Admin | number;
 }

@@ -1,10 +1,5 @@
 import { BaseEntity } from 'src/common/entities';
-import {
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    OneToOne,
-} from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { Media } from '../medias/media.entity';
 import { Admin } from '../admin/admin.entity';
 
