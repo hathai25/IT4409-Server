@@ -1,11 +1,5 @@
 import { BaseEntity } from 'src/common/entities';
-import {
-    Column,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    OneToMany,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Admin } from '../admin/admin.entity';
 import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
 
@@ -21,7 +15,7 @@ export class Category extends BaseEntity {
     @IsNotEmpty()
     description: string;
 
-    @Column({default:1})
+    @Column({ default: 1 })
     @IsNumber()
     order: number;
 
@@ -37,12 +31,12 @@ export class Category extends BaseEntity {
 
     @ManyToOne(() => Admin, { onDelete: 'NO ACTION' })
     @JoinColumn()
-    createdBy: Admin|number;
+    createdBy: Admin | number;
 
     @ManyToOne(() => Admin, { onDelete: 'NO ACTION' })
     @JoinColumn()
-    updateBy: Admin|number;
+    updateBy: Admin | number;
 
     @ManyToOne(() => Admin)
-    deletedBy: Admin|number;
+    deletedBy: Admin | number;
 }

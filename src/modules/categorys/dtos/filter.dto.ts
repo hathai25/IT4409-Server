@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { BasePageDto } from "src/common/dtos/base-page.dto";
-import { Like } from "typeorm";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { BasePageDto } from 'src/common/dtos/base-page.dto';
+import { Like } from 'typeorm';
 
 export class FilterDto extends BasePageDto {
     @IsOptional()
@@ -18,17 +18,17 @@ export class FilterDto extends BasePageDto {
 
     get options() {
         const options: any = {};
-        if(this.name) {
-            options.name = Like(`%${this.name}%`)
+        if (this.name) {
+            options.name = Like(`%${this.name}%`);
         }
 
-        if(this.parentCategory) {
-            options.parentCategory = this.parentCategory
+        if (this.parentCategory) {
+            options.parentCategory = this.parentCategory;
         }
 
-        if(this.order) {
-            options.order = this.order
+        if (this.order) {
+            options.order = this.order;
         }
-        return options
+        return options;
     }
 }

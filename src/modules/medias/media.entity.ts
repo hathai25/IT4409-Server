@@ -16,13 +16,13 @@ export class Media {
     @Column()
     @IsString()
     @MaxLength(50)
-    description: string;
+    description?: string;
 
     @Column()
     @IsEnum(MediaType)
     type: MediaType;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     @IsString()
     @IsNotEmpty()
     url: string;

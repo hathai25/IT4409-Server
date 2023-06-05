@@ -1,5 +1,11 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString, IsUrl } from "class-validator";
-import { MediaType } from "src/common/enum";
+import {
+    IsEnum,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+    IsUrl,
+} from 'class-validator';
+import { MediaType } from 'src/common/enum';
 
 export class UpdateMediaDto {
     @IsString()
