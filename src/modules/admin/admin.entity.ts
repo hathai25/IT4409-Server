@@ -1,5 +1,4 @@
-import { Type } from 'class-transformer';
-import { IsArray, IsEmail, IsEnum, IsString, MinLength } from 'class-validator';
+import { IsArray, IsEmail, IsString, MinLength } from 'class-validator';
 import { BaseEntity } from 'src/common/entities';
 import { Role } from 'src/common/enum';
 import { brcyptHelper } from 'src/common/helper/bcrypt.helper';
