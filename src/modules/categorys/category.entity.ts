@@ -10,7 +10,7 @@ export class Category extends BaseEntity {
     @MaxLength(20)
     name: string;
 
-    @Column()
+    @Column({nullable: true})
     @IsString()
     @IsNotEmpty()
     description: string;

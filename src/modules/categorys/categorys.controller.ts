@@ -40,7 +40,7 @@ export class CategorysController {
         @Body() createCategory: CreateCategoryDto,
         @Req() req: any,
     ): Promise<ISuccessRespone<CategoryDto>> {
-        if (!req.user.adminId) {
+        if (!req?.user?.adminId) {
             throw new BadRequestException('not admin id in the request');
         }
         const newCategory = await this.categorysService.createCategory(

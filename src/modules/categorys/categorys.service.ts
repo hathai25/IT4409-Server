@@ -20,7 +20,7 @@ export class CategorysService {
         createCategoryDto: CreateCategoryDto,
         adminId: number,
     ): Promise<Category> {
-        const currCategory = this.categoryRepository.findOne({
+        const currCategory = await  this.categoryRepository.findOne({
             where: { name: createCategoryDto.name },
             withDeleted: true,
         });

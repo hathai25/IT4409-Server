@@ -50,7 +50,7 @@ export class AdminService {
         const admin = await this.AdminRepository.find({
             where: { email: createAdminDto.email },
         });
-        if (admin) {
+        if (admin.length !== 0) {
             throw new BadRequestException('email is exist in system');
         }
         const newAdmin = new Admin();
