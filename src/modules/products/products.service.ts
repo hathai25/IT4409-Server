@@ -31,7 +31,7 @@ export class ProductsService {
         if (!currProduct) {
             throw new NotFoundException('product with id ' + id + ' not found');
         }
-        currProduct.updateBy = idAdmin;
+        currProduct.updatedBy = idAdmin;
         return await this.productsRepository.save({
             ...currProduct,
             ...updateProductDto,

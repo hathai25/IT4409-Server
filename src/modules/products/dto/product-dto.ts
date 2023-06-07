@@ -1,11 +1,9 @@
 import { Expose } from 'class-transformer';
+import { BaseDto } from 'src/common/dtos';
 import { Category } from 'src/modules/categorys/category.entity';
 import { Media } from 'src/modules/medias/media.entity';
 
-export class ProductDto {
-    @Expose()
-    id: number;
-
+export class ProductDto extends BaseDto {
     @Expose()
     name: string;
 

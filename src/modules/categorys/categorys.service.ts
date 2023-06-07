@@ -33,6 +33,7 @@ export class CategorysService {
         newCategory.name = createCategoryDto.name;
         newCategory.description = createCategoryDto.description;
         newCategory.parentCategory = createCategoryDto.parentCategory;
+        newCategory.order = createCategoryDto.order;
         newCategory.createdBy = adminId;
 
         return await this.categoryRepository.save(newCategory);
@@ -47,7 +48,7 @@ export class CategorysService {
         return await this.categoryRepository.save({
             ...category,
             ...updateCategoryDto,
-            updateBy: adminId,
+            updatedBy: adminId,
         });
     }
 
@@ -64,14 +65,18 @@ export class CategorysService {
                 `have error to soft delete category`,
             );
         }
-        return await this.categoryRepository.save(softDeleteCategory);
+        return await this.categoryRepository.save({
+            ...softDeleteCategory,
+            deletedBy: adminId
+        });
     }
 
     async restoreSoftDeleteCategoryById(categoryId: number): Promise<Category> {
         const softDeleteCategory = await this.findSoftDeleteCategoryById(
             categoryId,
         );
-        return await this.categoryRepository.recover(softDeleteCategory);
+        const restoreCategory =  await this.categoryRepository.recover(softDeleteCategory);
+        return await this.categoryRepository.save(restoreCategory);
     }
 
     async destroyCategoryById(categoryId: number): Promise<Category> {
@@ -88,7 +93,7 @@ export class CategorysService {
         const category = await this.categoryRepository.findOne({
             where: { id: categoryId, deleted: false },
         });
-        if (category) {
+        if (!category) {
             throw new NotFoundException(`category not found in system`);
         }
         return category;

@@ -9,7 +9,7 @@ export abstract class BaseCreatedByEntity extends BaseEntity {
 
     @ManyToOne(() => Admin)
     @JoinColumn()
-    updateBy: Admin | number;
+    updatedBy: Admin | number;
 
     @ManyToOne(() => Admin)
     @JoinColumn()

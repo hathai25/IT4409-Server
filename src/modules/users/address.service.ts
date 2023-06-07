@@ -24,12 +24,12 @@ export class AddressService {
         userId: number,
     ): Promise<Address> {
         try {
-            const newAddress = await this.addressRepository.create({
+            const newAddress =  this.addressRepository.create({
                 ...createAddresDto,
                 userId: userId,
             });
 
-            return newAddress;
+            return await this.addressRepository.save(newAddress);
         } catch (error) {
             throw new HttpException(`don't create address`, 500, {
                 cause: error,
@@ -62,7 +62,6 @@ export class AddressService {
     async updateAddressById(
         updateAddressDto: UpdateAddressDto,
         addressId: number,
-        userId: number,
     ): Promise<Address> {
         const currAddress = await this.findAddressById(addressId);
         const updateAddress = await this.addressRepository.save({

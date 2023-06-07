@@ -1,10 +1,8 @@
 import { Exclude, Expose, Type } from 'class-transformer';
+import { BaseWithDeletedDto } from 'src/common/dtos';
 import { Role } from 'src/common/enum';
 
-export class AdminDto {
-    @Expose()
-    id: number;
-
+export class AdminDto extends BaseWithDeletedDto {
     @Expose()
     email: string;
 

@@ -15,6 +15,10 @@ export class CreateAddressDto {
 
     @IsString()
     @IsNotEmpty()
+    commune : string;
+
+    @IsString()
+    @IsNotEmpty()
     readonly detail: string;
 
     @IsString()

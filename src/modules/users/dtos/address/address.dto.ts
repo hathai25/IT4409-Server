@@ -1,6 +1,7 @@
 import { Expose } from 'class-transformer';
+import { BaseCreateUpdateDto } from 'src/common/dtos';
 
-export class AddressDto {
+export class AddressDto extends BaseCreateUpdateDto {
     @Expose()
     country: string;
 
@@ -18,4 +19,7 @@ export class AddressDto {
 
     @Expose()
     phone: string;
+
+    @Expose()
+    userId: number;
 }

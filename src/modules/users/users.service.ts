@@ -5,8 +5,8 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
-import { Address, User } from './entity';
+import {  Repository } from 'typeorm';
+import {  User } from './entity';
 import { brcyptHelper } from 'src/common/helper/bcrypt.helper';
 import { CreateUserDto } from '../auth/dtos';
 import { FilterDto, UpdateUserDto } from './dtos/user';
@@ -16,8 +16,6 @@ export class UsersService {
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
-        @InjectRepository(Address)
-        private readonly addressRepository: Repository<Address>,
     ) {}
 
     // user
@@ -149,5 +147,12 @@ export class UsersService {
     async destroyUserById(id: number): Promise<User> {
         const softDeleteUser = await this.findSoftDeleteUserById(id);
         return await this.userRepository.remove(softDeleteUser);
+    }
+
+    async getDetailsUserById(id: number) : Promise<User> {
+        const userDetail = await this.userRepository.findOne({
+            where: {id: id}, withDeleted: true, relations: ['address']
+        })
+        return userDetail
     }
 }

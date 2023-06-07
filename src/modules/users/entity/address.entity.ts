@@ -23,6 +23,11 @@ export class Address extends BaseCreatedAnUpdatedEntity {
     @Column({ nullable: false })
     @IsString()
     @IsNotEmpty()
+    commune : string;
+    
+    @Column({ nullable: false })
+    @IsString()
+    @IsNotEmpty()
     detail: string;
 
     @Column({ nullable: false })

@@ -37,7 +37,7 @@ export class UsersController {
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.SuperAdmin)
-    @Get('/get-all')
+    @Get()
     async getUsers(
         @Query() filterDto: FilterDto,
     ): Promise<ISuccessListRespone<UserDto>> {
@@ -47,7 +47,7 @@ export class UsersController {
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.SuperAdmin)
-    @Get('/trash/get-all')
+    @Get('/trash')
     async getSoftDeleteUsers(
         @Query() filterDto: FilterDto,
     ): Promise<ISuccessListRespone<UserDto>> {
@@ -69,7 +69,7 @@ export class UsersController {
 
     @UseGuards(JwtAuthGuard)
     @Patch('/profile')
-    async updateUserById(
+    async updateProfileByOwer(
         @Req() req: any,
         @Body() updateUserDto: UpdateUserDto,
     ): Promise<ISuccessRespone<UserDto>> {
@@ -83,15 +83,6 @@ export class UsersController {
         return dataToRespone(UserDto)(updateUser);
     }
 
-    @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.SuperAdmin)
-    @Delete('/:id')
-    async softDeleteUserById(
-        @Param('id') id: number,
-    ): Promise<ISuccessRespone<UserDto>> {
-        const softDeleteUser = await this.usersService.softDeletUserById(id);
-        return dataToRespone(UserDto)(softDeleteUser);
-    }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.SuperAdmin)
@@ -131,18 +122,16 @@ export class UsersController {
     @UseGuards(JwtAuthGuard)
     @Patch('/address/:id')
     async updateAddressById(
-        @Req() req: any,
         @Param('id') id: number,
         @Body() updateAddressDto: UpdateAddressDto,
     ) {
-        if (!id || !req?.user?.userId) {
+        if (!id) {
             throw new BadRequestException('no data id address in request');
         }
 
         const updateAddress = this.addresService.updateAddressById(
             updateAddressDto,
-            id,
-            req?.user?.userId,
+            id
         );
         return dataToRespone(AddressDto)(updateAddress);
     }
@@ -151,7 +140,7 @@ export class UsersController {
     @Post('/address')
     async createAddress(
         @Req() req: any,
-        createAddressDto: CreateAddressDto,
+        @Body() createAddressDto: CreateAddressDto,
     ): Promise<ISuccessRespone<AddressDto>> {
         if (!req?.user?.userId) {
             throw new BadRequestException('no data id address in request');
@@ -189,5 +178,70 @@ export class UsersController {
 
         const address = this.addresService.findAddressById(id);
         return dataToRespone(AddressDto)(address);
+    }
+
+    // admin chỉ chỉnh sửa đc address.
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.SuperAdmin)
+    @Patch('/address/by-admin/:id')
+    async updateAddressByAdmin(
+        @Param('id') id: number,
+        @Body() updateAddressDto: UpdateAddressDto,
+    ) {
+        if (!id) {
+            throw new BadRequestException('no data id address in request');
+        }
+
+        const updateAddress = this.addresService.updateAddressById(
+            updateAddressDto,
+            id,
+        );
+        return dataToRespone(AddressDto)(updateAddress);
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.SuperAdmin)
+    @Get('address/by-admin/:id')
+    async getOneAddressByAdmin(
+        @Param('id') id: number,
+    ): Promise<ISuccessRespone<AddressDto>> {
+        if (!id) {
+            throw new BadRequestException('no data id address in request');
+        }
+
+        const address = this.addresService.findAddressById(id);
+        return dataToRespone(AddressDto)(address);
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.SuperAdmin)
+    @Get(':id')
+    async getUserDetailById(@Param('id') id: number):Promise<ISuccessRespone<UserDto>> {
+        const user = await this.usersService.getDetailsUserById(id);
+        return dataToRespone(UserDto)(user);
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.SuperAdmin)
+    @Delete('/:id')
+    async softDeleteUserById(
+        @Param('id') id: number,
+    ): Promise<ISuccessRespone<UserDto>> {
+        const softDeleteUser = await this.usersService.softDeletUserById(id);
+        return dataToRespone(UserDto)(softDeleteUser);
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.SuperAdmin)
+    @Patch(':id')
+    async updateUserById(
+        @Param('id') id: number,
+        @Body() updateUserDto: UpdateUserDto,
+    ): Promise<ISuccessRespone<UserDto>> {
+        const updateUser = await this.usersService.updateUserById(
+            id,
+            updateUserDto,
+        );
+        return dataToRespone(UserDto)(updateUser);
     }
 }

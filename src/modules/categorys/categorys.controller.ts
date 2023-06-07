@@ -11,7 +11,6 @@ import {
     Delete,
 } from '@nestjs/common';
 import { CategorysService } from './categorys.service';
-import { Category } from './category.entity';
 import { JwtAdminGuard, RolesGuard } from '../admin/guards';
 import { CreateCategoryDto, UpdateCategoryDto } from './dtos';
 import {

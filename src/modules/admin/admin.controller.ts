@@ -35,8 +35,8 @@ export class AdminController {
     }
 
     // admin crud
-    @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.SuperAdmin)
+    // @UseGuards(JwtAdminGuard, RolesGuard)
+    // @Roles(Role.SuperAdmin)
     @Post('create')
     async createAdmin(
         @Body() createAdminDto: CreateAdminDto,

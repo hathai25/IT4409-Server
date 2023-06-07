@@ -14,7 +14,7 @@ export abstract class BaseCreatedAnUpdatedEntity {
     @CreateDateColumn()
     createdAt: Date;
     @UpdateDateColumn()
-    updateAt: Date;
+    updatedAt: Date;
 }
 
 export class BaseEntity extends BaseCreatedAnUpdatedEntity {
