@@ -37,6 +37,6 @@ export class UpdateAddressDto {
     fullname?: string;
 
     @IsOptional()
-    @IsPhoneNumber()
+    @IsPhoneNumber('VN')
     phone?: string;
 }

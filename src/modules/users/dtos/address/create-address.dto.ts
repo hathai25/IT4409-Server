@@ -25,6 +25,6 @@ export class CreateAddressDto {
     @IsNotEmpty()
     readonly fullname: string;
 
-    @IsPhoneNumber()
+    @IsPhoneNumber('VN')
     readonly phone: string;
 }
