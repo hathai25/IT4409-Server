@@ -29,8 +29,8 @@ export class ProductDetail extends BaseCreatedByEntity {
         () => ProductDetailMedia,
         (producDetailMedia) => producDetailMedia.productDetailId,
     )
-    medias: ProductDetailMedia[];
+    medias: ProductDetailMedia[] | number[];
 
     @ManyToOne(() => Product, { onDelete: 'CASCADE' })
-    productId: Product;
+    productId: Product | number;
 }

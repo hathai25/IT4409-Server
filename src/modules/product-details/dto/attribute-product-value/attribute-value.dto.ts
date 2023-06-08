@@ -1,0 +1,15 @@
+import { Expose } from "class-transformer";
+import { BaseWithDeletedDto } from "src/common/dtos";
+import { AttributeProductDto } from "../attribute-product/attribute-product.dto";
+import { ProductDetailDto } from "../product-detail";
+
+export class AttributeProductValueDto extends BaseWithDeletedDto {
+    @Expose()
+    value: string;
+
+    @Expose()
+    attributeId: AttributeProductDto | number ;
+
+    @Expose()
+    productDetailId: ProductDetailDto | number;
+}

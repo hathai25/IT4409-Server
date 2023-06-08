@@ -13,9 +13,9 @@ export class ProductDetailMedia extends BaseCreatedAnUpdatedEntity {
     @ManyToOne(() => ProductDetail, (productDetail) => productDetail.medias, {
         onDelete: 'NO ACTION',
     })
-    productDetailId: ProductDetail;
+    productDetailId: ProductDetail | number;
 
     @OneToOne(() => Media, { onDelete: 'CASCADE', orphanedRowAction: 'delete' })
     @JoinColumn()
-    mediaId: Media;
+    mediaId: Media | number ;
 }

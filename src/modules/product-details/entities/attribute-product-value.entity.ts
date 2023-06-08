@@ -15,11 +15,11 @@ export class AttributeProductValue extends BaseEntity {
         onDelete: 'CASCADE',
         orphanedRowAction: 'delete',
     })
-    productDetailId: ProductDetail;
+    productDetailId: ProductDetail | number;
 
     @ManyToOne(() => AttributeProduct, {
         onDelete: 'CASCADE',
         orphanedRowAction: 'delete',
     })
-    attributeId: AttributeProduct;
+    attributeId: AttributeProduct | number ;
 }

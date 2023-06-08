@@ -4,7 +4,7 @@ import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class AttributeProduct extends BaseEntity {
-    @Column()
+    @Column({ nullable: false, unique : true})
     @IsString()
     @IsNotEmpty()
     name: string;
