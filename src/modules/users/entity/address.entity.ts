@@ -36,7 +36,7 @@ export class Address extends BaseCreatedAnUpdatedEntity {
     fullname: string;
 
     @Column({ nullable: false })
-    @IsPhoneNumber()
+    @IsPhoneNumber('VN')
     phone: string;
 
     @ManyToOne(() => User, (user) => user.address, {
