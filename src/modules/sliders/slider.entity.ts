@@ -1,21 +1,30 @@
-import { BaseEntity } from 'src/common/entities';
 import {
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    OneToOne,
-} from 'typeorm';
-import { Media } from '../medias/media.entity';
-import { Admin } from '../admin/admin.entity';
+    IsEnum,
+    IsNotEmpty,
+    IsNumber,
+    IsString,
+    MaxLength,
+} from 'class-validator';
+
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+
+
 
 // sửa lại cho hợp lí
 @Entity()
-export class Slider extends BaseEntity {
-    @OneToOne(() => Media, { onDelete: 'CASCADE', orphanedRowAction: 'delete' })
-    @JoinColumn()
-    imageId: Media;
+export class Slider {
+  @PrimaryGeneratedColumn()
+    id: number;
 
-    @ManyToOne(() => Admin, { onDelete: 'NO ACTION' })
-    @JoinColumn()
-    createdBy: Admin;
+    @Column()
+    @IsString()
+    @MaxLength(50)
+    description?: string;
+
+    @Column({ unique: true })
+    @IsString()
+    @IsNotEmpty()
+    url: string;
+
 }
