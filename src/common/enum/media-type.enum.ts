@@ -1,2 +1,4 @@
-export enum MediaType {}
+export enum MediaType {
+    JPG ='jpg'
+}
 // JSP = 'jsp'

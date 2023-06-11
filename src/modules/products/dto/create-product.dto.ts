@@ -34,7 +34,7 @@ export class CreateProductDto {
     @Type(() => Media)
     thumbnail: number | Media;
 
-    @ValidateNested({ each: true })
+    // @ValidateNested({ each: true })
     @Type(() => Category)
     categories: Category[];
 }

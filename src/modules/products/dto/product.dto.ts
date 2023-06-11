@@ -1,7 +1,8 @@
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { BaseDto } from 'src/common/dtos';
-import { Category } from 'src/modules/categorys/category.entity';
-import { Media } from 'src/modules/medias/media.entity';
+import { CategoryDto } from 'src/modules/categorys/dtos/category.dto';
+import { MediaDto } from 'src/modules/medias/dto';
+
 
 export class ProductDto extends BaseDto {
     @Expose()
@@ -20,8 +21,10 @@ export class ProductDto extends BaseDto {
     rate: number;
 
     @Expose()
-    thumbnail: Media | number;
+    @Type(() => MediaDto)
+    thumbnail: MediaDto;
 
     @Expose()
-    categories: Category[];
+    @Type(() => CategoryDto)
+    categories: CategoryDto[] | number[];
 }

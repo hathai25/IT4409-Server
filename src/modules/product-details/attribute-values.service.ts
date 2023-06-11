@@ -23,9 +23,10 @@ export class AttributeValuesService {
         if (!currValue) {
             throw new NotFoundException('value not found')
         }
+        console.log(currValue)
         return await this.attributeValueRepository.save({
             ...currValue,
-            ...updateAtrributeValueDto
+            ...updateAttributeValueDto
         })
     }
 

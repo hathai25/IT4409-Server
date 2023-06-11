@@ -19,12 +19,6 @@ export class MediasService {
     ) {}
 
     async CreateMedias(createMediaDto: CreateMediaDto): Promise<Media> {
-        const media = await this.mediaRepository.findOne({
-            where: { url: createMediaDto.url },
-        });
-        if (media) {
-            throw new BadRequestException('media is exist in synstom ');
-        }
         const newMedia = this.mediaRepository.create(createMediaDto);
         return  await this.mediaRepository.save(newMedia);
     }
@@ -34,7 +28,7 @@ export class MediasService {
             where: { url: url },
         });
         if (!media) {
-            throw new NotFoundException('media is exist in synstom ');
+            throw new NotFoundException('media is exist in system ');
         }
         return media;
     }

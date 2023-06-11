@@ -42,14 +42,6 @@ export class ProductsController {
         return arrDataToRespone(ProductDto)(product, total);
     }
 
-    @Get(':id')
-    async getProductById(
-        @Query() id: number,
-    ): Promise<ISuccessRespone<ProductDto>> {
-        const product = await this.productsService.getProductById(id);
-        return dataToRespone(ProductDto)(product);
-    }
-
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManageProduct)
     @Get('trash')
@@ -64,6 +56,14 @@ export class ProductsController {
         );
 
         return arrDataToRespone(ProductDto)(product, total);
+    }
+
+    @Get(':id')
+    async getProductById(
+        @Param('id') id: number,
+    ): Promise<ISuccessRespone<ProductDto>> {
+        const product = await this.productsService.getProductById(id);
+        return dataToRespone(ProductDto)(product);
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
@@ -81,21 +81,20 @@ export class ProductsController {
         return dataToRespone(ProductDto)(newProduct);
     }
 
+
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManagePage)
-    @Patch(':id')
-    async updateProductById(
-        @Body() updateProductDto: UpdateProductDto,
-        @Req() req: any,
+    @Patch('trash/resotre/:id')
+    async reStoreProductById(
         @Param('id') id: number,
+        @Req() req: any,
     ): Promise<ISuccessRespone<ProductDto>> {
-        const updateProduct = await this.productsService.updateProductById(
-            id,
-            updateProductDto,
-            req?.user?.adminId,
-        );
-
-        return dataToRespone(ProductDto)(updateProduct);
+        const reStoreProductById =
+            await this.productsService.recoverProductById(
+                id,
+                req?.user?.adminId,
+            );
+        return dataToRespone(ProductDto)(reStoreProductById);
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
@@ -115,21 +114,6 @@ export class ProductsController {
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManagePage)
-    @Patch('trash/resotre/:id')
-    async reStoreProductById(
-        @Param('id') id: number,
-        @Req() req: any,
-    ): Promise<ISuccessRespone<ProductDto>> {
-        const reStoreProductById =
-            await this.productsService.recoverProductById(
-                id,
-                req?.user?.adminId,
-            );
-        return dataToRespone(ProductDto)(reStoreProductById);
-    }
-
-    @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManagePage)
     @Delete(':id')
     async destroyProductById(
         @Param('id') id: number,
@@ -138,5 +122,22 @@ export class ProductsController {
             id,
         );
         return dataToRespone(ProductDto)(destroyProduct);
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.ManagePage)
+    @Patch(':id')
+    async updateProductById(
+        @Body() updateProductDto: UpdateProductDto,
+        @Req() req: any,
+        @Param('id') id: number,
+    ): Promise<ISuccessRespone<ProductDto>> {
+        const updateProduct = await this.productsService.updateProductById(
+            id,
+            updateProductDto,
+            req?.user?.adminId,
+        );
+
+        return dataToRespone(ProductDto)(updateProduct);
     }
 }
