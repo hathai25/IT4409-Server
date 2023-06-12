@@ -50,6 +50,11 @@ export class SlidersController {
         const slider = await this.slidersService.findSliderById(id);
         return dataToRespone(SliderDto)(slider);
     }
+    @Get()
+    async getAllSliders(): Promise<ISuccessRespone<SliderDto>> {
+        const sliders = await this.slidersService.getAllSlider();
+        return dataToRespone(SliderDto)(sliders);
+    }
 
 
 
