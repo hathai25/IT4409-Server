@@ -15,5 +15,5 @@ export class CartItem extends BaseEntity {
 
     @OneToOne(() => User)
     @JoinColumn()
-    owerId: User | number ;
+    owerId: User | number;
 }

@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString } from "class-validator";
-import { ProductDetail } from "../../entities/product-detail.entity";
-import { Type } from "class-transformer";
-import { AttributeProduct } from "../../entities/attribute-product.entity";
+import { IsNotEmpty, IsString } from 'class-validator';
+import { ProductDetail } from '../../entities/product-detail.entity';
+import { Type } from 'class-transformer';
+import { AttributeProduct } from '../../entities/attribute-product.entity';
 
 export class CreateAtrributeValueDto {
     @IsString()
@@ -11,6 +11,6 @@ export class CreateAtrributeValueDto {
     @Type(() => ProductDetail)
     productDetailId: ProductDetail | number;
 
-    @Type(() => AttributeProduct) 
-    attributeId: AttributeProduct | number ;
+    @Type(() => AttributeProduct)
+    attributeId: AttributeProduct | number;
 }

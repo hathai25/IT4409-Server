@@ -24,7 +24,7 @@ export class UpdateAddressDto {
     @IsOptional()
     @IsString()
     @IsNotEmpty()
-    commune? : string;
+    commune?: string;
 
     @IsOptional()
     @IsString()

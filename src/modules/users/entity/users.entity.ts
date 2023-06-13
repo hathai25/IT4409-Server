@@ -35,7 +35,7 @@ export class User extends BaseEntity {
     @IsUrl()
     avatar?: string;
 
-    @Column({ default: true})
+    @Column({ default: true })
     isActivity: boolean;
 
     @OneToMany(() => Address, (address) => address.userId)

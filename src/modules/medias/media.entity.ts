@@ -13,7 +13,7 @@ export class Media {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ nullable: true})
+    @Column({ nullable: true })
     @IsString()
     @MaxLength(50)
     description?: string;

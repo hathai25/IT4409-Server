@@ -1,7 +1,7 @@
-import { Expose, Type } from "class-transformer";
-import { BaseWithDeletedDto } from "src/common/dtos";
-import { AttributeDefaultDto } from "src/modules/product-details/dto/product-attribute-default";
-import { UserDto } from "src/modules/users/dtos/user";
+import { Expose, Type } from 'class-transformer';
+import { BaseWithDeletedDto } from 'src/common/dtos';
+import { AttributeDefaultDto } from 'src/modules/product-details/dto/product-attribute-default';
+import { UserDto } from 'src/modules/users/dtos/user';
 
 export class CartItemDto extends BaseWithDeletedDto {
     @Expose()
@@ -13,5 +13,5 @@ export class CartItemDto extends BaseWithDeletedDto {
 
     @Expose()
     @Type(() => UserDto)
-    owerId: UserDto | number ;
+    owerId: UserDto | number;
 }

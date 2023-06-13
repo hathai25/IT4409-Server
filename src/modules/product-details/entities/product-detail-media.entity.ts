@@ -1,10 +1,5 @@
 import { BaseCreatedAnUpdatedEntity } from 'src/common/entities';
-import {
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    OneToOne,
-} from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { ProductDetail } from './product-detail.entity';
 import { Media } from 'src/modules/medias/media.entity';
 
@@ -17,5 +12,5 @@ export class ProductDetailMedia extends BaseCreatedAnUpdatedEntity {
 
     @OneToOne(() => Media, { onDelete: 'CASCADE' })
     @JoinColumn()
-    mediaId: Media | number ;
+    mediaId: Media | number;
 }

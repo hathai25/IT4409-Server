@@ -1,17 +1,17 @@
-import { IsOptional, IsString } from "class-validator";
-import { BasePageDto } from "src/common/dtos";
-import { Like } from "typeorm";
+import { IsOptional, IsString } from 'class-validator';
+import { BasePageDto } from 'src/common/dtos';
+import { Like } from 'typeorm';
 
 export class FilterAttributeDto extends BasePageDto {
     @IsOptional()
     @IsString()
-    name? : string;
+    name?: string;
 
     get options() {
-        const options: any = {} 
+        const options: any = {};
         if (this.name) {
-            options.name = Like(this.name)
+            options.name = Like(this.name);
         }
-        return options
+        return options;
     }
 }

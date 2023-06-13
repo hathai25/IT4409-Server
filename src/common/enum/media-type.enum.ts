@@ -1,4 +1,4 @@
 export enum MediaType {
-    JPG ='jpg'
+    JPG = 'jpg',
 }
 // JSP = 'jsp'

@@ -13,9 +13,23 @@ import { MediaProductDetailsService } from './media-product-detail.service';
 import { ProductAttributeDefault } from './entities/product-attribute-default.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ProductDetail, ProductDetailMedia, AttributeProduct, AttributeProductValue, ProductAttributeDefault])],
+    imports: [
+        TypeOrmModule.forFeature([
+            ProductDetail,
+            ProductDetailMedia,
+            AttributeProduct,
+            AttributeProductValue,
+            ProductAttributeDefault,
+        ]),
+    ],
     controllers: [ProductDetailsController],
-    providers: [ProductDetailsService, AttributeDefaultsService, AttributeProductsService, AttributeValuesService, MediaProductDetailsService],
-    exports: [ProductDetailsService]
+    providers: [
+        ProductDetailsService,
+        AttributeDefaultsService,
+        AttributeProductsService,
+        AttributeValuesService,
+        MediaProductDetailsService,
+    ],
+    exports: [ProductDetailsService],
 })
 export class ProductDetailsModule {}

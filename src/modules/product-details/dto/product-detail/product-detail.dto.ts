@@ -1,14 +1,14 @@
-import { Expose, Type } from "class-transformer";
-import { BaseDto } from "src/common/dtos";
-import { MediaProductDetailDto } from "../media-product-detail";
-import { ProductDto } from "src/modules/products/dto";
-import { AttributeDefaultDto } from "../product-attribute-default";
-import { AttributeProductValueDto } from "../attribute-product-value";
+import { Expose, Type } from 'class-transformer';
+import { BaseDto } from 'src/common/dtos';
+import { MediaProductDetailDto } from '../media-product-detail';
+import { ProductDto } from 'src/modules/products/dto';
+import { AttributeDefaultDto } from '../product-attribute-default';
+import { AttributeProductValueDto } from '../attribute-product-value';
 
 export class ProductDetailDto extends BaseDto {
     @Expose()
     @Type(() => MediaProductDetailDto)
-    medias: MediaProductDetailDto[] | number[]
+    medias: MediaProductDetailDto[] | number[];
 
     @Expose()
     @Type(() => AttributeDefaultDto)
@@ -16,7 +16,7 @@ export class ProductDetailDto extends BaseDto {
 
     @Expose()
     @Type(() => AttributeProductValueDto)
-    attributeValues: AttributeProductValueDto[] | number[]
+    attributeValues: AttributeProductValueDto[] | number[];
 
     @Expose()
     @Type(() => ProductDto)

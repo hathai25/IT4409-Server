@@ -1,9 +1,9 @@
-import { Expose, Type } from "class-transformer";
-import { BaseDto } from "src/common/dtos";
-import { ProductDetailDto } from "../product-detail";
-import { MediaDto } from "src/modules/medias/dto";
+import { Expose, Type } from 'class-transformer';
+import { BaseDto } from 'src/common/dtos';
+import { ProductDetailDto } from '../product-detail';
+import { MediaDto } from 'src/modules/medias/dto';
 
-export class  AttributeDefaultDto extends BaseDto {
+export class AttributeDefaultDto extends BaseDto {
     @Expose()
     color: string;
 
@@ -12,10 +12,10 @@ export class  AttributeDefaultDto extends BaseDto {
 
     @Expose()
     inventoryNumber: number;
-    
+
     @Expose()
     @Type(() => MediaDto)
-    mediaId?: MediaDto | number ;
+    mediaId?: MediaDto | number;
 
     @Expose()
     @Type(() => ProductDetailDto)

@@ -20,7 +20,7 @@ export class CategorysService {
         createCategoryDto: CreateCategoryDto,
         adminId: number,
     ): Promise<Category> {
-        const currCategory = await  this.categoryRepository.findOne({
+        const currCategory = await this.categoryRepository.findOne({
             where: { name: createCategoryDto.name },
             withDeleted: true,
         });
@@ -67,7 +67,7 @@ export class CategorysService {
         }
         return await this.categoryRepository.save({
             ...softDeleteCategory,
-            deletedBy: adminId
+            deletedBy: adminId,
         });
     }
 
@@ -75,7 +75,9 @@ export class CategorysService {
         const softDeleteCategory = await this.findSoftDeleteCategoryById(
             categoryId,
         );
-        const restoreCategory =  await this.categoryRepository.recover(softDeleteCategory);
+        const restoreCategory = await this.categoryRepository.recover(
+            softDeleteCategory,
+        );
         return await this.categoryRepository.save(restoreCategory);
     }
 

@@ -81,7 +81,6 @@ export class ProductsController {
         return dataToRespone(ProductDto)(newProduct);
     }
 
-
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManagePage)
     @Patch('trash/resotre/:id')

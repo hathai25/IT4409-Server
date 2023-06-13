@@ -19,7 +19,7 @@ export class UpdateUserDto {
 
     @IsOptional()
     @IsBoolean()
-    readonly  isActivity?: boolean;
+    readonly isActivity?: boolean;
 
     @IsOptional()
     @IsUrl()

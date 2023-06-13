@@ -1,49 +1,81 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { AttributeProductValue } from "./entities/attribute-product-value.entity";
-import { Repository } from "typeorm";
-import { CreateAtrributeValueDto, updateAtrributeValueDto } from "./dto/attribute-product-value";
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AttributeProductValue } from './entities/attribute-product-value.entity';
+import { Repository } from 'typeorm';
+import {
+    CreateAtrributeValueDto,
+    updateAtrributeValueDto,
+} from './dto/attribute-product-value';
 
 @Injectable()
 export class AttributeValuesService {
-    constructor(@InjectRepository(AttributeProductValue) private readonly attributeValueRepository: Repository<AttributeProductValue>) {}
+    constructor(
+        @InjectRepository(AttributeProductValue)
+        private readonly attributeValueRepository: Repository<AttributeProductValue>,
+    ) {}
 
-    async createAttributeValue(createAttributeValueDto : CreateAtrributeValueDto): Promise<AttributeProductValue> {
-        const findValue = await this.attributeValueRepository.findOne({ where: { value: createAttributeValueDto.value, productDetailId: createAttributeValueDto.productDetailId, attributeId: createAttributeValueDto.attributeId}})
+    async createAttributeValue(
+        createAttributeValueDto: CreateAtrributeValueDto,
+    ): Promise<AttributeProductValue> {
+        const findValue = await this.attributeValueRepository.findOne({
+            where: {
+                value: createAttributeValueDto.value,
+                productDetailId: createAttributeValueDto.productDetailId,
+                attributeId: createAttributeValueDto.attributeId,
+            },
+        });
         if (findValue) {
-            throw new BadRequestException('attribute value is exsit in product detail')
+            throw new BadRequestException(
+                'attribute value is exsit in product detail',
+            );
         }
 
-        const newValue = this.attributeValueRepository.create(createAttributeValueDto)
-        return await this.attributeValueRepository.save(newValue)
+        const newValue = this.attributeValueRepository.create(
+            createAttributeValueDto,
+        );
+        return await this.attributeValueRepository.save(newValue);
     }
 
-    async updateAttributeValueById(id: number, updateAttributeValueDto: updateAtrributeValueDto): Promise<AttributeProductValue> {
-        const currValue = await this.attributeValueRepository.findOne({ where: {id: id}})
+    async updateAttributeValueById(
+        id: number,
+        updateAttributeValueDto: updateAtrributeValueDto,
+    ): Promise<AttributeProductValue> {
+        const currValue = await this.attributeValueRepository.findOne({
+            where: { id: id },
+        });
         if (!currValue) {
-            throw new NotFoundException('value not found')
+            throw new NotFoundException('value not found');
         }
-        console.log(currValue)
+        console.log(currValue);
         return await this.attributeValueRepository.save({
             ...currValue,
-            ...updateAttributeValueDto
-        })
+            ...updateAttributeValueDto,
+        });
     }
 
-    async destroyAttributeValueById(id: number): Promise<AttributeProductValue> {
-        const currValue = await this.attributeValueRepository.findOne({ where: {id: id}})
+    async destroyAttributeValueById(
+        id: number,
+    ): Promise<AttributeProductValue> {
+        const currValue = await this.attributeValueRepository.findOne({
+            where: { id: id },
+        });
         if (!currValue) {
-            throw new NotFoundException('value not found')
+            throw new NotFoundException('value not found');
         }
-        return await this.attributeValueRepository.remove(currValue)
+        return await this.attributeValueRepository.remove(currValue);
     }
 
     async getAttributeValueaById(id: number): Promise<AttributeProductValue> {
-        const value = await this.attributeValueRepository.findOne({ where: {id: id}})
+        const value = await this.attributeValueRepository.findOne({
+            where: { id: id },
+        });
         if (!value) {
-            throw new NotFoundException('value not found')
+            throw new NotFoundException('value not found');
         }
-        return value
+        return value;
     }
-
 }

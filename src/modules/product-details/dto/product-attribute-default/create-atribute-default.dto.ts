@@ -1,7 +1,7 @@
-import { Type } from "class-transformer";
-import { IsInt, IsNotEmpty, IsString, Min } from "class-validator";
-import { ProductDetail } from "../../entities/product-detail.entity";
-import { Media } from "src/modules/medias/media.entity";
+import { Type } from 'class-transformer';
+import { IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
+import { ProductDetail } from '../../entities/product-detail.entity';
+import { Media } from 'src/modules/medias/media.entity';
 
 export class CreateAttributeDefaultDto {
     @IsString()
@@ -17,9 +17,8 @@ export class CreateAttributeDefaultDto {
     inventoryNumber: number;
 
     @Type(() => Media)
-    mediaId?: Media | number ;
+    mediaId?: Media | number;
 
-    @Type(() => ProductDetail) 
+    @Type(() => ProductDetail)
     productDetailId: ProductDetail | number;
-
 }

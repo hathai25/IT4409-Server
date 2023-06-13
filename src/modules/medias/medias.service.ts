@@ -20,7 +20,7 @@ export class MediasService {
 
     async CreateMedias(createMediaDto: CreateMediaDto): Promise<Media> {
         const newMedia = this.mediaRepository.create(createMediaDto);
-        return  await this.mediaRepository.save(newMedia);
+        return await this.mediaRepository.save(newMedia);
     }
 
     async findMediaByUrl(url: string): Promise<Media> {

@@ -1,7 +1,7 @@
-import { Expose, Type } from "class-transformer";
-import { BaseWithDeletedDto } from "src/common/dtos";
-import { AttributeProductDto } from "../attribute-product/attribute-product.dto";
-import { ProductDetailDto } from "../product-detail";
+import { Expose, Type } from 'class-transformer';
+import { BaseWithDeletedDto } from 'src/common/dtos';
+import { AttributeProductDto } from '../attribute-product/attribute-product.dto';
+import { ProductDetailDto } from '../product-detail';
 
 export class AttributeProductValueDto extends BaseWithDeletedDto {
     @Expose()
@@ -9,7 +9,7 @@ export class AttributeProductValueDto extends BaseWithDeletedDto {
 
     @Expose()
     @Type(() => AttributeProductDto)
-    attributeId: AttributeProductDto | number ;
+    attributeId: AttributeProductDto | number;
 
     @Expose()
     @Type(() => ProductDetailDto)

@@ -3,7 +3,6 @@ import { BaseDto } from 'src/common/dtos';
 import { CategoryDto } from 'src/modules/categorys/dtos/category.dto';
 import { MediaDto } from 'src/modules/medias/dto';
 
-
 export class ProductDto extends BaseDto {
     @Expose()
     name: string;

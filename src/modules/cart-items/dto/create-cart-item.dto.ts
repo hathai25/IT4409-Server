@@ -1,6 +1,6 @@
-import { Type } from "class-transformer";
-import { IsNotEmpty, IsNumber, Min } from "class-validator";
-import { ProductAttributeDefault } from "src/modules/product-details/entities/product-attribute-default.entity";
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, Min } from 'class-validator';
+import { ProductAttributeDefault } from 'src/modules/product-details/entities/product-attribute-default.entity';
 
 export class CreateCartItemDto {
     @IsNumber()
