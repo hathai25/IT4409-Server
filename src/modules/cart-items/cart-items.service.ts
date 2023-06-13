@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CartItem } from './cart-item.entity';
 import { Repository } from 'typeorm';
@@ -20,19 +20,28 @@ export class CartItemsService {
         return await this.cartItemRepository.save(newCartItem)
     }
 
-    async updateCartItemById( id: number, updateCartItemDto: UpdateCartItemDto): Promise<CartItem> {
-        const currCartItem = await this.cartItemRepository.findOne({ where: { id: id}})
+    async updateCartItemById( id: number, updateCartItemDto: UpdateCartItemDto, owerId: number): Promise<CartItem> {
+        const currCartItem = await this.cartItemRepository.findOne({ 
+            where: { id: id, owerId: { id: owerId}}, 
+            relations: {
+                itemId: true
+            }, 
+        })
         if (!currCartItem) {
             throw new NotFoundException('cart item not found in system')
         }
-        return await this.cartItemRepository.save({
-            ...currCartItem,
-            ...updateCartItemDto
-        })
+
+        if ((currCartItem.number + updateCartItemDto.number) < 0) {
+            throw new BadRequestException('the number must greater than number item')
+        }
+        currCartItem.number += updateCartItemDto.number
+        return await this.cartItemRepository.save(
+            currCartItem
+        )
     }
 
-    async destroyCartItemById(id: number): Promise<CartItem> {
-        const currCartItem = await this.cartItemRepository.findOne({ where: { id: id}})
+    async destroyCartItemById(id: number, owerId: number): Promise<CartItem> {
+        const currCartItem = await this.cartItemRepository.findOne({ where: { id: id, owerId: {id: owerId}}})
         if (!currCartItem) {
             throw new NotFoundException('cart item not found in system')
         } 
@@ -40,22 +49,37 @@ export class CartItemsService {
         return await this.cartItemRepository.remove(currCartItem)
     }
 
-    async getCartItemById(id: number): Promise<CartItem> {
-        const cartItem = await this.cartItemRepository.findOne({ where: { id: id}})
+    async getCartItemById(id: number, owerId: number): Promise<CartItem> {
+        const cartItem = await this.cartItemRepository.findOne({ where: { id: id, owerId: {id: owerId}}, 
+            relations: { 
+                itemId: { 
+                    productDetailId: {
+                        productId: true
+                    }, 
+                    mediaId: true
+                }, 
+            }})
         if (!cartItem) {
             throw new NotFoundException('cart item not found in system')
         } 
         return cartItem
     }
 
-    // chỉnh sửa lại get
-    // get all sắp xếp theo ngày tạo
-    async getCartItemOfOwer(owerId: number): Promise<CartItem[]> {
+    async getAllCartItemOfOwer(owerId: number): Promise<CartItem[]> {
         const cartItems = await this.cartItemRepository.find({ 
             where: {owerId: {id: owerId}}, 
-            relations: [
-                'productDetail'
-            ]
+            relations: { 
+                itemId: { 
+                    productDetailId: {
+                        productId: true
+                    }, 
+                    mediaId: true
+                }, 
+            },
+            order: {
+                createdAt: 'ASC'
+            }
+            
         })
         return cartItems
     }
