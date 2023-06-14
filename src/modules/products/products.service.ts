@@ -17,6 +17,7 @@ export class ProductsService {
     ): Promise<Product> {
         const newProduct = this.productsRepository.create(createProductdto);
         newProduct.createdBy = idAdmin;
+        newProduct.categories = createProductdto.categories;
         return await this.productsRepository.save(newProduct);
     }
 
@@ -85,14 +86,17 @@ export class ProductsService {
             where: { ...filterProductDto.options },
             skip: filterProductDto.skip,
             take: filterProductDto.limit,
+            relations: ['thumbnail'],
         });
     }
 
     async getProductById(id: number): Promise<Product> {
         const product = await this.productsRepository.findOne({
-            where: { id: id, deleted: true },
+            where: { id: id },
             withDeleted: true,
+            relations: ['thumbnail', 'categories'],
         });
+        console.log(product);
         if (!product) {
             throw new NotFoundException('not found product');
         }
@@ -106,6 +110,7 @@ export class ProductsService {
             where: { ...filterProductDto.options, deleted: true },
             skip: filterProductDto.skip,
             take: filterProductDto.limit,
+            relations: ['thumbnail'],
             withDeleted: true,
         });
     }

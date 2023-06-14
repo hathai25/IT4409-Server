@@ -1,5 +1,5 @@
 import { BaseEntity } from 'src/common/entities';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { ProductDetail } from './product-detail.entity';
 import { AttributeProduct } from './attribute-product.entity';
 import { IsNotEmpty, IsString } from 'class-validator';
@@ -11,15 +11,19 @@ export class AttributeProductValue extends BaseEntity {
     @IsNotEmpty()
     value: string;
 
-    @ManyToOne(() => ProductDetail, {
-        onDelete: 'CASCADE',
-        orphanedRowAction: 'delete',
-    })
-    productDetailId: ProductDetail;
+    @ManyToOne(
+        () => ProductDetail,
+        (productDetail) => productDetail.attributeValues,
+        {
+            onDelete: 'CASCADE',
+            orphanedRowAction: 'delete',
+        },
+    )
+    productDetailId: ProductDetail | number;
 
     @ManyToOne(() => AttributeProduct, {
         onDelete: 'CASCADE',
         orphanedRowAction: 'delete',
     })
-    attributeId: AttributeProduct;
+    attributeId: AttributeProduct | number;
 }

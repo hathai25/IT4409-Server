@@ -15,7 +15,7 @@ export class CreateAddressDto {
 
     @IsString()
     @IsNotEmpty()
-    commune : string;
+    commune: string;
 
     @IsString()
     @IsNotEmpty()

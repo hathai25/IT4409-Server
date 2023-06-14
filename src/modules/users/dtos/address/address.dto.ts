@@ -10,10 +10,8 @@ export class AddressDto extends BaseCreateUpdateDto {
 
     @Expose()
     district: string;
-
     @Expose()
-    commune? : string;
-
+    commune: string;
     @Expose()
     detail: string;
 

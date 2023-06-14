@@ -1,5 +1,5 @@
-import { Expose } from "class-transformer";
-import { Admin } from "typeorm";
+import { Expose } from 'class-transformer';
+import { Admin } from 'typeorm';
 
 export class BaseCreateUpdateDto {
     @Expose()
@@ -12,7 +12,7 @@ export class BaseCreateUpdateDto {
     updatedAt: Date;
 }
 
-export class BaseWithDeletedDto extends BaseCreateUpdateDto { 
+export class BaseWithDeletedDto extends BaseCreateUpdateDto {
     @Expose()
     deleted: boolean;
 

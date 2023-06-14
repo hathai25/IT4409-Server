@@ -35,6 +35,7 @@ import { ReviewMedia } from './modules/reviews/entities/reivew-media';
 import { Slider } from './modules/sliders/slider.entity';
 import { Transaction } from './modules/transactions/transaction.entity';
 import { AuthModule } from './modules/auth/auth.module';
+import { ProductAttributeDefault } from './modules/product-details/entities/product-attribute-default.entity';
 
 @Module({
     imports: [
@@ -64,6 +65,7 @@ import { AuthModule } from './modules/auth/auth.module';
                 AttributeProductValue,
                 ProductDetail,
                 ProductDetailMedia,
+                ProductAttributeDefault,
                 Product,
                 Review,
                 ReviewMedia,

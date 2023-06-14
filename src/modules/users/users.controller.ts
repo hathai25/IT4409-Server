@@ -83,7 +83,6 @@ export class UsersController {
         return dataToRespone(UserDto)(updateUser);
     }
 
-
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.SuperAdmin)
     @Patch('/trash/restore/:id')
@@ -131,7 +130,7 @@ export class UsersController {
 
         const updateAddress = this.addresService.updateAddressById(
             updateAddressDto,
-            id
+            id,
         );
         return dataToRespone(AddressDto)(updateAddress);
     }
@@ -216,7 +215,9 @@ export class UsersController {
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.SuperAdmin)
     @Get(':id')
-    async getUserDetailById(@Param('id') id: number):Promise<ISuccessRespone<UserDto>> {
+    async getUserDetailById(
+        @Param('id') id: number,
+    ): Promise<ISuccessRespone<UserDto>> {
         const user = await this.usersService.getDetailsUserById(id);
         return dataToRespone(UserDto)(user);
     }

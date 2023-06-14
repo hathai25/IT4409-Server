@@ -1,8 +1,8 @@
 import { BaseEntity } from 'src/common/entities';
-import { ProductDetail } from 'src/modules/product-details/entities/product-detail.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { User } from 'src/modules/users/entity/users.entity';
 import { IsNumber } from 'class-validator';
+import { ProductAttributeDefault } from '../product-details/entities/product-attribute-default.entity';
 
 @Entity()
 export class CartItem extends BaseEntity {
@@ -10,10 +10,10 @@ export class CartItem extends BaseEntity {
     @IsNumber()
     number: number;
 
-    @ManyToOne(() => ProductDetail, { onDelete: 'SET NULL' })
-    itemId: ProductDetail;
+    @ManyToOne(() => ProductAttributeDefault, { onDelete: 'SET NULL' })
+    itemId: ProductAttributeDefault | number;
 
-    @OneToOne(() => User, { orphanedRowAction: 'delete' })
+    @OneToOne(() => User)
     @JoinColumn()
-    owerId: User;
+    owerId: User | number;
 }

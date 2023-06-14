@@ -16,6 +16,6 @@ export class CreateMediaDto {
     @IsNotEmpty()
     url: string;
 
-    @IsEnum(MediaType) s;
+    @IsEnum(MediaType)
     type: MediaType;
 }

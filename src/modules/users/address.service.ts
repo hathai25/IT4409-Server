@@ -24,7 +24,7 @@ export class AddressService {
         userId: number,
     ): Promise<Address> {
         try {
-            const newAddress =  this.addressRepository.create({
+            const newAddress = this.addressRepository.create({
                 ...createAddresDto,
                 userId: userId,
             });

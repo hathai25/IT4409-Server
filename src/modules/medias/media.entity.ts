@@ -13,7 +13,7 @@ export class Media {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     @IsString()
     @MaxLength(50)
     description?: string;
@@ -22,7 +22,7 @@ export class Media {
     @IsEnum(MediaType)
     type: MediaType;
 
-    @Column({ unique: true })
+    @Column()
     @IsString()
     @IsNotEmpty()
     url: string;

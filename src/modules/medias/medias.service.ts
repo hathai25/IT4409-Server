@@ -1,4 +1,5 @@
 import {
+    BadRequestException,
     HttpException,
     HttpStatus,
     Injectable,
@@ -18,14 +19,8 @@ export class MediasService {
     ) {}
 
     async CreateMedias(createMediaDto: CreateMediaDto): Promise<Media> {
-        const media = await this.mediaRepository.findOne({
-            where: { url: createMediaDto.url },
-        });
-        if (!media) {
-            throw new NotFoundException('media is exist in synstom ');
-        }
-        const newMedia = await this.mediaRepository.save(createMediaDto);
-        return media;
+        const newMedia = this.mediaRepository.create(createMediaDto);
+        return await this.mediaRepository.save(newMedia);
     }
 
     async findMediaByUrl(url: string): Promise<Media> {
@@ -33,7 +28,7 @@ export class MediasService {
             where: { url: url },
         });
         if (!media) {
-            throw new NotFoundException('media is exist in synstom ');
+            throw new NotFoundException('media is exist in system ');
         }
         return media;
     }
@@ -71,7 +66,7 @@ export class MediasService {
 
     async findMediaById(id: number): Promise<Media> {
         const media = await this.mediaRepository.findOne({ where: { id: id } });
-        if (media) {
+        if (!media) {
             throw new NotFoundException('not found media with id ' + id);
         }
         return media;
