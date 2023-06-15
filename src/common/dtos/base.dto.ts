@@ -1,5 +1,6 @@
-import { Expose } from 'class-transformer';
-import { Admin } from 'typeorm';
+import { Expose, Type } from 'class-transformer';
+import { Admin } from 'src/modules/admin/admin.entity';
+import { AdminDto } from 'src/modules/admin/dtos';
 
 export class BaseCreateUpdateDto {
     @Expose()
@@ -17,16 +18,16 @@ export class BaseWithDeletedDto extends BaseCreateUpdateDto {
     deleted: boolean;
 
     @Expose()
-    deletedAt: Date;
+    deletedAt: Date | null;
 }
 
 export class BaseDto extends BaseWithDeletedDto {
     @Expose()
-    createdBy: Admin | number;
+    createdBy: AdminDto | number;
 
     @Expose()
-    updatedBy: Admin | number;
+    updatedBy: AdminDto | number;
 
     @Expose()
-    deletedBy: Admin | number;
+    deletedBy: AdminDto | number;
 }

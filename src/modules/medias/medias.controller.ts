@@ -26,8 +26,8 @@ export class MediasController {
 
     @Patch(':id')
     async updateMediaById(
-        id: number,
-        updateMediaDto: UpdateMediaDto,
+        @Param() id: number,
+        @Body() updateMediaDto: UpdateMediaDto,
     ): Promise<ISuccessRespone<MediaDto>> {
         const updateMedia = await this.mediasService.updataMediaById(
             id,
