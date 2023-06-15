@@ -18,9 +18,12 @@ export class SlidersService {
         private readonly sliderRepository: Repository<Slider>,
     ) {}
 
-    async CreateSlider(createSliderDto: CreateSliderDto, adminId: number): Promise<Slider> {
+    async CreateSlider(
+        createSliderDto: CreateSliderDto,
+        adminId: number,
+    ): Promise<Slider> {
         if (!adminId) {
-            throw new BadRequestException('not admin id in request')
+            throw new BadRequestException('not admin id in request');
         }
         const slider = await this.sliderRepository.findOne({
             where: { url: createSliderDto.url },
@@ -31,10 +34,10 @@ export class SlidersService {
                 HttpStatus.CONFLICT,
             );
         }
-        const newSlider = this.sliderRepository.create(createSliderDto)
+        const newSlider = this.sliderRepository.create(createSliderDto);
         newSlider.createdBy = adminId;
-       
-        return await this.sliderRepository.save(newSlider)
+
+        return await this.sliderRepository.save(newSlider);
     }
     async findSliderByUrl(url: string): Promise<Slider> {
         const slider = await this.sliderRepository.findOne({
@@ -49,10 +52,12 @@ export class SlidersService {
     async updataSliderById(
         id: number,
         updateSliderDto: UpdateSliderDto,
-        adminId: number
+        adminId: number,
     ): Promise<Slider> {
         if (!id || !adminId) {
-            throw new BadRequestException(' not id slider or id admin in request')
+            throw new BadRequestException(
+                ' not id slider or id admin in request',
+            );
         }
         const currSlider = await this.sliderRepository.findOne({
             where: { id: id },
@@ -65,13 +70,15 @@ export class SlidersService {
                 where: { url: updateSliderDto.url },
             });
             if (findSlider) {
-                throw new BadRequestException('url is exist in the slider repository')
+                throw new BadRequestException(
+                    'url is exist in the slider repository',
+                );
             }
         }
         const updateSlider = await this.sliderRepository.save({
             ...currSlider,
             ...updateSliderDto,
-            updatedBy: adminId
+            updatedBy: adminId,
         });
 
         return updateSlider;
@@ -91,7 +98,9 @@ export class SlidersService {
     }
 
     async findSliderById(id: number): Promise<Slider> {
-        const slider = await this.sliderRepository.findOne({ where: { id: id } });
+        const slider = await this.sliderRepository.findOne({
+            where: { id: id },
+        });
         if (!slider) {
             throw new NotFoundException('not found slider with id ' + id);
         }
@@ -99,28 +108,36 @@ export class SlidersService {
     }
 
     async getAllSliderForAdmin(): Promise<Slider[]> {
-        const sliders = await this.sliderRepository.find({ 
-            select: { 
-                createdBy: { email: true, id: true},
-                updatedBy: { email: true, id: true}
+        const sliders = await this.sliderRepository.find({
+            select: {
+                createdBy: { email: true, id: true },
+                updatedBy: { email: true, id: true },
             },
-            relations: { createdBy: true, updatedBy: true }
-        })
-        return sliders
+            relations: { createdBy: true, updatedBy: true },
+        });
+        return sliders;
     }
 
-    async getAllSliderForClient(): Promise<Slider[]> { 
-        const sliders = await this.sliderRepository.find({ where: { isShow: true}})
-        return sliders
+    async getAllSliderForClient(): Promise<Slider[]> {
+        const sliders = await this.sliderRepository.find({
+            where: { isShow: true },
+        });
+        return sliders;
     }
 
-    async updateShowSliderById(id: number, modifyShowDto: ModifyShowDto, adminId: number): Promise<Slider> {
-        const currSlider = await this.sliderRepository.findOne({ where: { id: id}});
+    async updateShowSliderById(
+        id: number,
+        modifyShowDto: ModifyShowDto,
+        adminId: number,
+    ): Promise<Slider> {
+        const currSlider = await this.sliderRepository.findOne({
+            where: { id: id },
+        });
         if (!currSlider) {
             throw new NotFoundException('not found slider with id: ' + id);
         }
         currSlider.isShow = modifyShowDto.isShow;
         currSlider.updatedBy = adminId;
-        return await this.sliderRepository.save(currSlider)
+        return await this.sliderRepository.save(currSlider);
     }
 }

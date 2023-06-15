@@ -18,7 +18,7 @@ export class Review extends BaseEntity {
     @Max(5)
     rate: number;
 
-    @Column({ type: 'simple-array'})
+    @Column({ type: 'simple-array' })
     medias: string[];
 
     @ManyToOne(() => Product, { onDelete: 'CASCADE' })

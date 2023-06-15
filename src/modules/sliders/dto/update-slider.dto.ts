@@ -7,7 +7,7 @@ import {
     IsUrl,
 } from 'class-validator';
 import { MediaType } from 'src/common/enum';
-export class UpdateSliderDto{
+export class UpdateSliderDto {
     @IsOptional()
     @IsString()
     description?: string;
@@ -20,7 +20,7 @@ export class UpdateSliderDto{
     @IsOptional()
     @IsEnum(MediaType)
     @IsNotEmpty()
-    type?: MediaType
+    type?: MediaType;
 
     @IsOptional()
     @IsBoolean()

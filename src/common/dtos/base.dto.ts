@@ -2,7 +2,6 @@ import { Expose, Type } from 'class-transformer';
 import { Admin } from 'src/modules/admin/admin.entity';
 import { AdminDto } from 'src/modules/admin/dtos';
 
-
 export class BaseCreateUpdateDto {
     @Expose()
     id: number;
@@ -24,7 +23,7 @@ export class BaseWithDeletedDto extends BaseCreateUpdateDto {
 
 export class BaseDto extends BaseWithDeletedDto {
     @Expose()
-    createdBy: AdminDto | number ;
+    createdBy: AdminDto | number;
 
     @Expose()
     updatedBy: AdminDto | number;

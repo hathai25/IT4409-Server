@@ -4,7 +4,7 @@ import { MediaType } from 'express';
 import { BaseDto } from 'src/common/dtos';
 import { Admin } from 'src/modules/admin/admin.entity';
 import { AdminDto } from 'src/modules/admin/dtos';
-export class SliderDto extends BaseDto{
+export class SliderDto extends BaseDto {
     @Expose()
     description?: string;
 
@@ -13,7 +13,7 @@ export class SliderDto extends BaseDto{
     url: string;
 
     @Expose()
-    type: MediaType
+    type: MediaType;
 
     @Expose()
     isShow: boolean;
@@ -25,6 +25,4 @@ export class SliderDto extends BaseDto{
     @Expose()
     @Type(() => AdminDto)
     updatedBy: number | AdminDto;
-
-
 }
