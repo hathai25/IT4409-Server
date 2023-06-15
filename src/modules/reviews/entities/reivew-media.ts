@@ -17,7 +17,7 @@ export class ReviewMedia extends BaseCreatedAnUpdatedEntity {
     })
     reviewId: Review;
 
-    @OneToOne(() => Media, { onDelete: 'CASCADE', orphanedRowAction: 'delete' })
-    @JoinColumn()
-    mediasId: Media;
+    // @OneToOne(() => Media, { onDelete: 'CASCADE', orphanedRowAction: 'delete' })
+    // @JoinColumn()
+    // mediasId: Media;
 }

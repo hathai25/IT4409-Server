@@ -4,6 +4,7 @@ import { User } from 'src/modules/users/entity/users.entity';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { ReviewMedia } from './reivew-media';
 import { IsInt, IsString, Max, Min } from 'class-validator';
+import { type } from 'os';
 
 @Entity()
 export class Review extends BaseEntity {
@@ -16,6 +17,9 @@ export class Review extends BaseEntity {
     @Min(1)
     @Max(5)
     rate: number;
+
+    @Column({ type: 'simple-array'})
+    medias: string[];
 
     @ManyToOne(() => Product, { onDelete: 'CASCADE' })
     productId: Product;
@@ -35,6 +39,6 @@ export class Review extends BaseEntity {
     @OneToMany(() => Review, (review) => review.parentReview)
     childReviews: Review[];
 
-    @OneToMany(() => ReviewMedia, (reviewMedia) => reviewMedia.reviewId)
-    medias: ReviewMedia[];
+    // @OneToMany(() => ReviewMedia, (reviewMedia) => reviewMedia.reviewId)
+    // medias: ReviewMedia[];
 }

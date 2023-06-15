@@ -1,16 +1,26 @@
-import { BaseEntity } from 'src/common/entities';
-import { Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-import { Media } from '../medias/media.entity';
-import { Admin } from '../admin/admin.entity';
+import { BaseCreatedByEntity } from 'src/common/entities';
+import { Column, Entity } from 'typeorm';
+import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
+import { MediaType } from 'src/common/enum';
 
-// sửa lại cho hợp lí
 @Entity()
-export class Slider extends BaseEntity {
-    @OneToOne(() => Media, { onDelete: 'CASCADE', orphanedRowAction: 'delete' })
-    @JoinColumn()
-    imageId: Media;
+export class Slider extends BaseCreatedByEntity {
+   @Column()
+   @IsUrl()
+   @IsNotEmpty()
+   url: string;
 
-    @ManyToOne(() => Admin, { onDelete: 'NO ACTION' })
-    @JoinColumn()
-    createdBy: Admin;
+   @Column({ default: MediaType.JPG})
+   @IsEnum(MediaType)
+   type: MediaType
+
+   @Column({ default: true})
+   @IsBoolean()
+   isShow: boolean;
+
+   @Column({ nullable: true})
+   @IsOptional()
+   @IsString()
+   @IsNotEmpty()
+   description?: string
 }
