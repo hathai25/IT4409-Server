@@ -1,6 +1,5 @@
 import {
     BadRequestException,
-    ForbiddenException,
     Injectable,
     NotFoundException,
 } from '@nestjs/common';
@@ -101,7 +100,7 @@ export class CartItemsService {
                 },
             },
             order: {
-                createdAt: 'ASC',
+                createdAt: 'DESC',
             },
         });
         return cartItems;
