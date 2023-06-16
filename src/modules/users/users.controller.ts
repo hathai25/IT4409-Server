@@ -118,6 +118,32 @@ export class UsersController {
         return arrDataToRespone(AddressDto)(addresses, addresses.length);
     }
 
+      // admin chỉ chỉnh sửa đc address.
+      @UseGuards(JwtAdminGuard, RolesGuard)
+      @Roles(Role.SuperAdmin)
+      @Patch('/address/by-admin/:id')
+      async updateAddressByAdmin(
+          @Param('id') id: number,
+          @Body() updateAddressDto: UpdateAddressDto,
+      ) {
+          if (!id) {
+              throw new BadRequestException('no data id address in request');
+          }
+  
+          const updateAddress = this.addresService.updateAddressById(
+              updateAddressDto,
+              id,
+          );
+          return dataToRespone(AddressDto)(updateAddress);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch('address/default/:id')
+    async updateDefaultAddress(@Param('id') id: number, @Req() req: any ): Promise<ISuccessRespone<AddressDto>> {
+        const updateAddress = await this.addresService.updateDefaultAddressById(id, req?.user?.userId)
+        return dataToRespone(AddressDto)(updateAddress)
+    }
+
     @UseGuards(JwtAuthGuard)
     @Patch('/address/:id')
     async updateAddressById(
@@ -166,38 +192,6 @@ export class UsersController {
         return dataToRespone(AddressDto)(destroyAddress);
     }
 
-    @UseGuards(JwtAuthGuard)
-    @Get('address/:id')
-    async getOneAddressById(
-        @Param('id') id: number,
-    ): Promise<ISuccessRespone<AddressDto>> {
-        if (!id) {
-            throw new BadRequestException('no data id address in request');
-        }
-
-        const address = this.addresService.findAddressById(id);
-        return dataToRespone(AddressDto)(address);
-    }
-
-    // admin chỉ chỉnh sửa đc address.
-    @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.SuperAdmin)
-    @Patch('/address/by-admin/:id')
-    async updateAddressByAdmin(
-        @Param('id') id: number,
-        @Body() updateAddressDto: UpdateAddressDto,
-    ) {
-        if (!id) {
-            throw new BadRequestException('no data id address in request');
-        }
-
-        const updateAddress = this.addresService.updateAddressById(
-            updateAddressDto,
-            id,
-        );
-        return dataToRespone(AddressDto)(updateAddress);
-    }
-
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.SuperAdmin)
     @Get('address/by-admin/:id')
@@ -211,6 +205,21 @@ export class UsersController {
         const address = this.addresService.findAddressById(id);
         return dataToRespone(AddressDto)(address);
     }
+
+  
+
+    @UseGuards(JwtAuthGuard)
+    @Get('address/:id')
+    async getOneAddressById(
+        @Param('id') id: number,
+    ): Promise<ISuccessRespone<AddressDto>> {
+        if (!id) {
+            throw new BadRequestException('no data id address in request');
+        }
+
+        const address = this.addresService.findAddressById(id);
+        return dataToRespone(AddressDto)(address);
+    }  
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.SuperAdmin)
