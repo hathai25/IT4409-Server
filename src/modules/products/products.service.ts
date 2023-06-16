@@ -1,23 +1,33 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './product.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto, FilterProductDto, UpdateProductDto } from './dto';
+import { CategorysService } from '../categorys/categorys.service';
 
 @Injectable()
 export class ProductsService {
     constructor(
         @InjectRepository(Product)
         private readonly productsRepository: Repository<Product>,
+        private readonly categoryService: CategorysService
     ) {}
 
     async createProduct(
-        createProductdto: CreateProductDto,
+        createProductDto: CreateProductDto,
         idAdmin: number,
     ): Promise<Product> {
-        const newProduct = this.productsRepository.create(createProductdto);
+        const findProduct = await this.productsRepository.findOne({ where: { name: createProductDto.name}})
+        if (findProduct) {
+            throw new BadRequestException('product name is exist in system')
+        }
+        const newProduct = this.productsRepository.create(createProductDto);
         newProduct.createdBy = idAdmin;
-        newProduct.categories = createProductdto.categories;
+        const categories = await this.categoryService.findCategoriesByIds(createProductDto.categoriesId)
+        if (categories.length !== createProductDto.categoriesId.length) {
+            throw new BadRequestException('not found categories in system')
+        }
+        newProduct.categories = categories
         return await this.productsRepository.save(newProduct);
     }
 
@@ -32,7 +42,20 @@ export class ProductsService {
         if (!currProduct) {
             throw new NotFoundException('product with id ' + id + ' not found');
         }
+        
+        const findProduct = await this.productsRepository.findOne({ where: { name: updateProductDto.name}})
+        if (findProduct) {
+            throw new BadRequestException('product name is exist in system')
+        }
+
         currProduct.updatedBy = idAdmin;
+        if (updateProductDto.categoriesId) {
+            const categories = await this.categoryService.findCategoriesByIds(updateProductDto.categoriesId)
+            if (categories.length !== updateProductDto.categoriesId.length) {
+                throw new BadRequestException('not found categories in system')
+            }
+            currProduct.categories = categories;
+        }
         return await this.productsRepository.save({
             ...currProduct,
             ...updateProductDto,
@@ -86,7 +109,15 @@ export class ProductsService {
             where: { ...filterProductDto.options },
             skip: filterProductDto.skip,
             take: filterProductDto.limit,
-            relations: ['thumbnail'],
+            relations: ['categories'],
+            select: {
+                categories: {
+                    id: true,
+                    name: true,
+                    order: true,
+                    parentCategory: true
+                }
+            }
         });
     }
 
@@ -94,9 +125,16 @@ export class ProductsService {
         const product = await this.productsRepository.findOne({
             where: { id: id },
             withDeleted: true,
-            relations: ['thumbnail', 'categories'],
+            relations: ['categories'],
+            select: {
+                categories: {
+                    id: true,
+                    name: true,
+                    order: true,
+                    parentCategory: true
+                }
+            }
         });
-        console.log(product);
         if (!product) {
             throw new NotFoundException('not found product');
         }
@@ -110,8 +148,16 @@ export class ProductsService {
             where: { ...filterProductDto.options, deleted: true },
             skip: filterProductDto.skip,
             take: filterProductDto.limit,
-            relations: ['thumbnail'],
             withDeleted: true,
+            relations: ['categories'],
+            select: {
+                categories: {
+                    id: true,
+                    name: true,
+                    order: true,
+                    parentCategory: true
+                }
+            }
         });
     }
 

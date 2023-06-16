@@ -1,14 +1,12 @@
-import { Type } from 'class-transformer';
 import {
+    IsArray,
     IsNotEmpty,
     IsNumber,
     IsOptional,
     IsString,
     Min,
-    ValidateNested,
 } from 'class-validator';
-import { Category } from 'src/modules/categorys/category.entity';
-import { Media } from 'src/modules/medias/media.entity';
+
 
 export class CreateProductDto {
     @IsString()
@@ -27,14 +25,11 @@ export class CreateProductDto {
     @Min(0)
     sellOfQuantity: number;
 
-    @IsNumber()
-    @Min(0)
-    rate: number;
+    @IsString()
+    @IsNotEmpty()
+    thumbnail: string;
 
-    @Type(() => Media)
-    thumbnail: number | Media;
-
-    // @ValidateNested({ each: true })
-    @Type(() => Category)
-    categories: Category[];
+    @IsArray()
+    @IsNumber({}, { each: true})
+    categoriesId: number[]
 }
