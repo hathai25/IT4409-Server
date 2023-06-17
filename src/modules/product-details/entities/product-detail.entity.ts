@@ -1,9 +1,9 @@
 import { BaseCreatedByEntity } from 'src/common/entities';
 import { Product } from 'src/modules/products/product.entity';
-import { Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
-import { ProductDetailMedia } from './product-detail-media.entity';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { ProductAttributeDefault } from './product-attribute-default.entity';
 import { AttributeProductValue } from './attribute-product-value.entity';
+import { IsArray, IsString } from 'class-validator';
 
 @Entity()
 export class ProductDetail extends BaseCreatedByEntity {
@@ -13,11 +13,10 @@ export class ProductDetail extends BaseCreatedByEntity {
     )
     attributeDefaults: ProductAttributeDefault[] | number[];
 
-    @OneToMany(
-        () => ProductDetailMedia,
-        (producDetailMedia) => producDetailMedia.productDetailId,
-    )
-    medias: ProductDetailMedia[] | number[];
+    @Column({ type: 'simple-array', nullable: true})
+    @IsArray()
+    @IsString({each: true})
+    medias: string[]
 
     @OneToMany(
         () => AttributeProductValue,
@@ -25,7 +24,7 @@ export class ProductDetail extends BaseCreatedByEntity {
     )
     attributeValues: AttributeProductValue[] | number[];
 
-    @OneToOne(() => Product, { onDelete: 'CASCADE' })
+    @OneToOne(() => Product, (product) => product.productDetail, { onDelete: 'CASCADE' })
     @JoinColumn()
     productId: Product | number;
 }

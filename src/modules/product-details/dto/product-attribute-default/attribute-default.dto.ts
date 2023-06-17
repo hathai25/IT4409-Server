@@ -14,8 +14,7 @@ export class AttributeDefaultDto extends BaseDto {
     inventoryNumber: number;
 
     @Expose()
-    @Type(() => MediaDto)
-    mediaId?: MediaDto | number;
+    mediaId?: string;
 
     @Expose()
     @Type(() => ProductDetailDto)

@@ -1,16 +1,18 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './product.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto, FilterProductDto, UpdateProductDto } from './dto';
 import { CategorysService } from '../categorys/categorys.service';
+import { ProductDetailsService } from '../product-details/product-details.service';
 
 @Injectable()
 export class ProductsService {
     constructor(
         @InjectRepository(Product)
         private readonly productsRepository: Repository<Product>,
-        private readonly categoryService: CategorysService
+        private readonly categoryService: CategorysService,
+        private readonly productDetailsService: ProductDetailsService
     ) {}
 
     async createProduct(
@@ -28,7 +30,14 @@ export class ProductsService {
             throw new BadRequestException('not found categories in system')
         }
         newProduct.categories = categories
-        return await this.productsRepository.save(newProduct);
+        const saveNewProduct =  await this.productsRepository.save(newProduct);
+        if (!saveNewProduct) {
+            throw new InternalServerErrorException('error to save product')
+        }
+        await this.productDetailsService.createProductDetail({productId: saveNewProduct.id}, idAdmin)
+        return await  this.productsRepository.findOne({ where: { id: saveNewProduct.id}, relations: { productDetail: true }, select: { productDetail: {
+            id: true
+        }}})
     }
 
     async updateProductById(
@@ -109,13 +118,19 @@ export class ProductsService {
             where: { ...filterProductDto.options },
             skip: filterProductDto.skip,
             take: filterProductDto.limit,
-            relations: ['categories'],
+            relations: {
+                categories: true,
+                productDetail: true,
+            },
             select: {
                 categories: {
                     id: true,
                     name: true,
                     order: true,
                     parentCategory: true
+                },
+                productDetail: {
+                    id: true
                 }
             }
         });
@@ -125,13 +140,19 @@ export class ProductsService {
         const product = await this.productsRepository.findOne({
             where: { id: id },
             withDeleted: true,
-            relations: ['categories'],
+            relations: {
+                categories: true,
+                productDetail: true,
+            },
             select: {
                 categories: {
                     id: true,
                     name: true,
                     order: true,
                     parentCategory: true
+                },
+                productDetail: {
+                    id: true
                 }
             }
         });
@@ -149,13 +170,19 @@ export class ProductsService {
             skip: filterProductDto.skip,
             take: filterProductDto.limit,
             withDeleted: true,
-            relations: ['categories'],
+            relations: {
+                categories: true,
+                productDetail: true,
+            },
             select: {
                 categories: {
                     id: true,
                     name: true,
                     order: true,
                     parentCategory: true
+                },
+                productDetail: {
+                    id: true
                 }
             }
         });

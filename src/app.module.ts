@@ -28,7 +28,6 @@ import { Order } from './modules/orders/entities/order.entity';
 import { AttributeProduct } from './modules/product-details/entities/attribute-product.entity';
 import { AttributeProductValue } from './modules/product-details/entities/attribute-product-value.entity';
 import { ProductDetail } from './modules/product-details/entities/product-detail.entity';
-import { ProductDetailMedia } from './modules/product-details/entities/product-detail-media.entity';
 import { Product } from './modules/products/product.entity';
 import { Review } from './modules/reviews/review.entity';
 import { Slider } from './modules/sliders/slider.entity';
@@ -63,7 +62,6 @@ import { ProductAttributeDefault } from './modules/product-details/entities/prod
                 AttributeProduct,
                 AttributeProductValue,
                 ProductDetail,
-                ProductDetailMedia,
                 ProductAttributeDefault,
                 Product,
                 Review,

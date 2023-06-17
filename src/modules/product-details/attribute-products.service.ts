@@ -82,14 +82,8 @@ export class AttributeProductsService {
         return attribute;
     }
 
-    async getAllAttribute(
-        filterAttributeDto: FilterAttributeDto,
-    ): Promise<AttributeProduct[]> {
-        const attribute = await this.attributProductRepository.find({
-            where: filterAttributeDto.options,
-            take: filterAttributeDto.limit,
-            skip: filterAttributeDto.skip,
-        });
+    async getAllAttribute(): Promise<AttributeProduct[]> {
+        const attribute = await this.attributProductRepository.find();
         return attribute;
     }
 

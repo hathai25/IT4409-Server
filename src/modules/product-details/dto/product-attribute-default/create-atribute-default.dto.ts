@@ -16,8 +16,9 @@ export class CreateAttributeDefaultDto {
     @Min(0)
     inventoryNumber: number;
 
-    @Type(() => Media)
-    mediaId?: Media | number;
+    @IsString()
+    @IsNotEmpty()
+    mediaId?: string;
 
     @Type(() => ProductDetail)
     productDetailId: ProductDetail | number;

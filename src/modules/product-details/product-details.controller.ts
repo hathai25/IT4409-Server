@@ -13,15 +13,14 @@ import {
 import { ProductDetailsService } from './product-details.service';
 import { AttributeDefaultsService } from './attribute-default.service';
 import { AttributeValuesService } from './attribute-values.service';
-import { MediaProductDetailsService } from './media-product-detail.service';
 import { AttributeProductsService } from './attribute-products.service';
 import {
     CreateProductDetailDto,
     ProductDetailDto,
     UpdateProductDetailDto,
 } from './dto/product-detail';
-import { ISuccessRespone } from 'src/common/respone/interface';
-import { dataToRespone } from 'src/common/respone/until';
+import { ISuccessListRespone, ISuccessRespone } from 'src/common/respone/interface';
+import { arrDataToRespone, dataToRespone } from 'src/common/respone/until';
 import { JwtAdminGuard, RolesGuard } from '../admin/guards';
 import { Role } from 'src/common/enum';
 import { Roles } from '../admin/decorator/role.decorator';
@@ -38,11 +37,6 @@ import {
     CreateAttributeDefaultDto,
     UpdateAttributeDefaultDto,
 } from './dto/product-attribute-default';
-import {
-    CreateMediaProductDetailDto,
-    MediaProductDetailDto,
-    UpdateMediaProductDetailDto,
-} from './dto/media-product-detail';
 
 @Controller('product-details')
 export class ProductDetailsController {
@@ -50,7 +44,6 @@ export class ProductDetailsController {
         private readonly productDetailsService: ProductDetailsService,
         private readonly attributesDefaultsService: AttributeDefaultsService,
         private readonly attributeValuesService: AttributeValuesService,
-        private readonly mediaProductDetailsService: MediaProductDetailsService,
         private readonly attributeProductsService: AttributeProductsService,
     ) {}
 
@@ -109,36 +102,9 @@ export class ProductDetailsController {
         return dataToRespone(AttributeDefaultDto)(newAttributeDefault);
     }
 
-    @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManageProduct)
-    @Post('/medias')
-    async createMediaProductDetail(
-        @Body() createMediaProductDetailDto: CreateMediaProductDetailDto,
-    ): Promise<ISuccessRespone<MediaProductDetailDto>> {
-        const newMediaProductDetail =
-            await this.mediaProductDetailsService.createMediaProductDetail(
-                createMediaProductDetailDto,
-            );
-        return dataToRespone(MediaProductDetailDto)(newMediaProductDetail);
-    }
-
     // end create
 
     // update
-    @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManageProduct)
-    @Patch('/medias/:id')
-    async updateMediaProductDetailById(
-        @Param('id') id: number,
-        @Body() updateMediaProductDetailDto: UpdateMediaProductDetailDto,
-    ): Promise<ISuccessRespone<MediaProductDetailDto>> {
-        const updateMeidaProductDetail =
-            await this.mediaProductDetailsService.updateMediaProductDetail(
-                id,
-                updateMediaProductDetailDto,
-            );
-        return dataToRespone(MediaProductDetailDto)(updateMeidaProductDetail);
-    }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManageProduct)
@@ -205,18 +171,6 @@ export class ProductDetailsController {
     // end update
 
     // delete
-    @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManageProduct)
-    @Delete('/medias/:id')
-    async destroyMediaProductDetails(
-        @Param('id') id: number,
-    ): Promise<ISuccessRespone<MediaProductDetailDto>> {
-        const deleteMedia =
-            await this.mediaProductDetailsService.destroyMediaProductDetailById(
-                id,
-            );
-        return dataToRespone(MediaProductDetailDto)(deleteMedia);
-    }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManageProduct)
@@ -267,6 +221,38 @@ export class ProductDetailsController {
     // end delete
 
     // get product details
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.ManageProduct)
+    @Get('attributes') 
+    async getAllAttribute(): Promise<ISuccessListRespone<AttributeProductDto>> {
+        const attributes = await this.attributeProductsService.getAllAttribute();
+        return arrDataToRespone(AttributeProductDto)(attributes, attributes.length)
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.ManageProduct)
+    @Get('values') 
+    async getAllAttributeValueByProductDetailId(@Query('productDetailId') productDetailId: number): Promise<ISuccessListRespone<AttributeProductValueDto>> {
+        const values = await this.attributeValuesService.getAllAttributeValuesByProductDetilId(productDetailId);
+        return arrDataToRespone(AttributeProductValueDto)(values, values.length)
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.ManageProduct)
+    @Get('/default-values') 
+    async getAllDefaultAttributesByProductDetilId(@Query('productDetailId') productDetailId: number): Promise<ISuccessListRespone<AttributeDefaultDto>> {
+        const defaultAttributes = await this.attributesDefaultsService.getAllAttributeDefaultByProductDetailId(productDetailId)
+        return arrDataToRespone(AttributeDefaultDto)(defaultAttributes, defaultAttributes.length)
+    }
+
+    @UseGuards(JwtAdminGuard, RolesGuard)
+    @Roles(Role.ManageProduct)
+    @Get('/medias') 
+    async getAllMediaProductDetailById(@Query('productDetailId') productDetailId: number): Promise<ISuccessRespone<ProductDetailDto>> {
+        const productDetail = await this.productDetailsService.getProductMediaById(productDetailId)
+        return dataToRespone(ProductDetailDto)(productDetail)
+    }
+
     @Get()
     async getProductDetailByProductId(
         @Query('productId') productId: string,
@@ -285,7 +271,8 @@ export class ProductDetailsController {
         const productDetail =
             await this.productDetailsService.getProductDetailById(id);
         return dataToRespone(ProductDetailDto)(productDetail);
-    }
+    }  
+
 
     // end get
 }

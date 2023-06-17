@@ -67,7 +67,7 @@ export class ProductsController {
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManagePage)
+    @Roles(Role.ManageProduct)
     @Post()
     async createProduct(
         @Body() createProductDto: CreateProductDto,
@@ -82,7 +82,7 @@ export class ProductsController {
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManagePage)
+    @Roles(Role.ManageProduct)
     @Patch('trash/resotre/:id')
     async reStoreProductById(
         @Param('id') id: number,
@@ -97,7 +97,7 @@ export class ProductsController {
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManagePage)
+    @Roles(Role.ManageProduct)
     @Patch('delete/:id')
     async softDeleteProductById(
         @Param('id') id: number,
@@ -112,7 +112,7 @@ export class ProductsController {
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManagePage)
+    @Roles(Role.ManageProduct)
     @Delete(':id')
     async destroyProductById(
         @Param('id') id: number,
@@ -124,7 +124,7 @@ export class ProductsController {
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
-    @Roles(Role.ManagePage)
+    @Roles(Role.ManageProduct)
     @Patch(':id')
     async updateProductById(
         @Body() updateProductDto: UpdateProductDto,

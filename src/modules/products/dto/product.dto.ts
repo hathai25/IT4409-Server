@@ -1,6 +1,7 @@
 import { Expose, Type } from 'class-transformer';
 import { BaseDto } from 'src/common/dtos';
 import { CategoryDto } from 'src/modules/categorys/dtos/category.dto';
+import { ProductDetailDto } from 'src/modules/product-details/dto/product-detail';
 
 export class ProductDto extends BaseDto {
     @Expose()
@@ -20,6 +21,10 @@ export class ProductDto extends BaseDto {
 
     @Expose()
     thumbnail: string;
+
+    @Expose()
+    @Type(() => ProductDetailDto)
+    productDetail: ProductDetailDto
 
     @Expose()
     @Type(() => CategoryDto)

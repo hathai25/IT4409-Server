@@ -78,12 +78,16 @@ export class AttributeDefaultsService {
         const findAttributeDefault =
             await this.attributeDefaultRepository.findOne({
                 where: { id: id },
-                relations: ['mediaId'],
             });
         if (!findAttributeDefault) {
             throw new NotFoundException('attribute default  not found');
         }
 
         return findAttributeDefault;
+    }
+
+    async getAllAttributeDefaultByProductDetailId(productDetailId: number): Promise<ProductAttributeDefault[]> {
+        const attributeDefaults = await this.attributeDefaultRepository.find({ where: { productDetailId: { id: productDetailId}}})
+        return attributeDefaults
     }
 }

@@ -3,10 +3,12 @@ import {
     Entity,
     JoinTable,
     ManyToMany,
+    OneToOne,
 } from 'typeorm';
 import { Category } from '../categorys/category.entity';
 import { BaseCreatedByEntity } from 'src/common/entities';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { ProductDetail } from '../product-details/entities/product-detail.entity';
 
 @Entity()
 export class Product extends BaseCreatedByEntity {
@@ -33,6 +35,9 @@ export class Product extends BaseCreatedByEntity {
     @Column()
     @IsNotEmpty()
     thumbnail: string
+
+    @OneToOne(() => ProductDetail, (productDetail) => productDetail.productId)
+    productDetail: ProductDetail
 
     @ManyToMany(() => Category)
     @JoinTable()
