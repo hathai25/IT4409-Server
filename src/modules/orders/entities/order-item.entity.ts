@@ -1,6 +1,6 @@
 import { BaseCreatedAnUpdatedEntity } from 'src/common/entities';
 import { ProductDetail } from 'src/modules/product-details/entities/product-detail.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { Order } from './order.entity';
 import { IsNumber } from 'class-validator';
 

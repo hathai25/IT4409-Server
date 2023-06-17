@@ -1,13 +1,12 @@
-import { Type } from 'class-transformer';
 import {
+    IsArray,
+    IsNotEmpty,
     IsNumber,
     IsOptional,
     IsString,
     Min,
-    ValidateNested,
 } from 'class-validator';
-import { Category } from 'src/modules/categorys/category.entity';
-import { Media } from 'src/modules/medias/media.entity';
+
 
 export class UpdateProductDto {
     name?: string;
@@ -31,12 +30,13 @@ export class UpdateProductDto {
     @IsOptional()
     rate?: number;
 
-    @Type(() => Media)
     @IsOptional()
-    thumbnail?: number | Media;
+    @IsString()
+    @IsNotEmpty()
+    thumbnail?: string;
 
-    @ValidateNested({ each: true })
-    @Type(() => Category)
     @IsOptional()
-    categories?: Category[];
+    @IsArray()
+    @IsNumber({}, { each: true})
+    categoriesId: number[]
 }

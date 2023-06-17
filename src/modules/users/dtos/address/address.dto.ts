@@ -22,5 +22,8 @@ export class AddressDto extends BaseCreateUpdateDto {
     phone: string;
 
     @Expose()
+    isDefault: boolean;
+
+    @Expose()
     userId: number;
 }

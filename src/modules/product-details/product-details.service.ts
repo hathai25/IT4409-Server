@@ -75,15 +75,27 @@ export class ProductDetailsService {
     async getProductDetailById(id: number): Promise<ProductDetail> {
         const findProductDetail = await this.productDetailRepository.findOne({
             where: { id: id },
-            relations: [
-                'attributeDefaults',
-                'medias',
-                'productId',
-                'medias.mediaId',
-                'attributeDefaults.mediaId',
-                'attributeValues',
-                'attributeValues.attributeId',
-            ],
+            relations: {
+                attributeDefaults: true,
+                productId: {
+                    categories: true,
+                },
+                attributeValues: {
+                    attributeId: true
+                },
+            },
+            select: {
+                attributeDefaults: {
+                    id: true, color: true, size: true, inventoryNumber: true, mediaId: true
+                },
+                attributeValues: {
+                    id: true, value: true,
+                    attributeId: {
+                        id: true, name: true
+                    }
+                },
+                productId: true
+            }
         });
         if (!findProductDetail) {
             throw new NotFoundException('not found product detail');
@@ -98,10 +110,7 @@ export class ProductDetailsService {
             where: { productId: { id: productId } },
             relations: [
                 'attributeDefaults',
-                'medias',
                 'productId',
-                'medias.mediaId',
-                'attributeDefaults.mediaId',
                 'attributeValues',
                 'attributeValues.attributeId',
             ],
@@ -112,5 +121,16 @@ export class ProductDetailsService {
             );
         }
         return findProductDetail;
+    }
+
+    async getProductMediaById(id: number): Promise<ProductDetail> {
+        const productDetails = await this.productDetailRepository.findOne({ 
+            where: {id: id}, 
+            select: {id: true, medias: true}
+        })
+        if (!productDetails) {
+            throw new NotFoundException('not found product detail with product detail: ' + id)
+        }
+        return productDetails
     }
 }

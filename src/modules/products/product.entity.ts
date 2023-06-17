@@ -1,15 +1,14 @@
 import {
     Column,
     Entity,
-    JoinColumn,
     JoinTable,
     ManyToMany,
     OneToOne,
 } from 'typeorm';
 import { Category } from '../categorys/category.entity';
-import { Media } from '../medias/media.entity';
 import { BaseCreatedByEntity } from 'src/common/entities';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { ProductDetail } from '../product-details/entities/product-detail.entity';
 
 @Entity()
 export class Product extends BaseCreatedByEntity {
@@ -33,12 +32,12 @@ export class Product extends BaseCreatedByEntity {
     @IsNumber()
     rate: number;
 
-    @OneToOne(() => Media, {
-        onDelete: 'SET NULL',
-        orphanedRowAction: 'nullify',
-    })
-    @JoinColumn()
-    thumbnail: Media | number;
+    @Column()
+    @IsNotEmpty()
+    thumbnail: string
+
+    @OneToOne(() => ProductDetail, (productDetail) => productDetail.productId)
+    productDetail: ProductDetail
 
     @ManyToMany(() => Category)
     @JoinTable()

@@ -1,8 +1,7 @@
 import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { BaseCreatedByEntity } from 'src/common/entities';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { ProductDetail } from './product-detail.entity';
-import { Media } from 'src/modules/medias/media.entity';
 
 @Entity()
 export class ProductAttributeDefault extends BaseCreatedByEntity {
@@ -20,9 +19,10 @@ export class ProductAttributeDefault extends BaseCreatedByEntity {
     @IsInt()
     inventoryNumber: number;
 
-    @OneToOne(() => Media, { onDelete: 'CASCADE' })
-    @JoinColumn()
-    mediaId: Media | number;
+    @Column()
+    @IsString()
+    @IsNotEmpty()
+    mediaId: string;
 
     @ManyToOne(() => ProductDetail, {
         onDelete: 'CASCADE',

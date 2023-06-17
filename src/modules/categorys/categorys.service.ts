@@ -4,7 +4,7 @@ import {
     InternalServerErrorException,
     NotFoundException,
 } from '@nestjs/common';
-import { IsNull, Repository } from 'typeorm';
+import { In, IsNull, Repository } from 'typeorm';
 import { Category } from './category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FilterDto, CreateCategoryDto, UpdateCategoryDto } from './dtos';
@@ -144,5 +144,10 @@ export class CategorysService {
                 'have error to get categories',
             );
         }
+    }
+
+    async findCategoriesByIds(ids: number[]): Promise<Category[]> {
+        const categories = await this.categoryRepository.find({ where: { id: In(ids)}})
+        return categories
     }
 }

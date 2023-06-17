@@ -78,7 +78,6 @@ export class CartItemsService {
                     productDetailId: {
                         productId: true,
                     },
-                    mediaId: true,
                 },
             },
         });
@@ -96,7 +95,6 @@ export class CartItemsService {
                     productDetailId: {
                         productId: true,
                     },
-                    mediaId: true,
                 },
             },
             order: {
