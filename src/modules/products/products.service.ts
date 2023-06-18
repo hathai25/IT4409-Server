@@ -52,9 +52,11 @@ export class ProductsService {
             throw new NotFoundException('product with id ' + id + ' not found');
         }
         
-        const findProduct = await this.productsRepository.findOne({ where: { name: updateProductDto.name}})
-        if (findProduct) {
-            throw new BadRequestException('product name is exist in system')
+        if (currProduct.name !== updateProductDto.name) {
+            const findProduct = await this.productsRepository.findOne({ where: { name: updateProductDto.name}})
+            if (findProduct) {
+                throw new BadRequestException('product name is exist in system')
+            }
         }
 
         currProduct.updatedBy = idAdmin;
