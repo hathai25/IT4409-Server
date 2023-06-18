@@ -3,37 +3,44 @@ import { Admin } from 'src/modules/admin/admin.entity';
 import { User } from 'src/modules/users/entity/users.entity';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { OrderItem } from './order-item.entity';
-import { OrderStatus } from 'src/common/enum';
+import { OrderStatus, PaymentType } from 'src/common/enum';
 import { IsBoolean, IsEnum, IsNumber } from 'class-validator';
 
 @Entity()
 export class Order extends BaseEntity {
-    @Column({ default: OrderStatus.SUCCESS })
+    @Column({ default: OrderStatus.PREPARED })
     @IsEnum(OrderStatus)
     status: OrderStatus;
+
+    @Column({ default: PaymentType.CASH })
+    @IsEnum(PaymentType)
+    paymentType: PaymentType
 
     @Column()
     @IsNumber()
     totalMoney: number;
 
+    @Column({ default: false})
+    isPay: boolean;
+
     @ManyToOne(() => User, { onDelete: 'NO ACTION' })
-    owerId: User;
+    owerId: User | number ;
 
     @ManyToOne(() => Admin, {
         onDelete: 'NO ACTION',
         orphanedRowAction: 'disable',
     })
-    updatedBy: Admin;
+    updatedBy: Admin | number;
 
     @ManyToOne(() => Admin, {
         onDelete: 'NO ACTION',
         orphanedRowAction: 'disable',
     })
-    deletedBy: Admin;
+    deletedBy: Admin | number;
 
-    @Column({ default: false })
+    @Column({ nullable: true})
     @IsBoolean()
-    isDeletedByUser: boolean;
+    isCancelByUser: boolean;
 
     @OneToMany(() => OrderItem, (orderItem) => orderItem.orderId)
     orderItems: OrderItem[];

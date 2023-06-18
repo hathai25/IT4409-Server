@@ -3,4 +3,5 @@ export enum OrderStatus {
     FAILURE = 'Failure',
     DELIVERED = 'Delivered',
     DELIVERING = 'Delivering',
+    PREPARED = 'Prepared'
 }
