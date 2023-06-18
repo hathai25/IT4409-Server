@@ -24,8 +24,8 @@ export class AttributeValuesService {
         const findValue = await this.attributeValueRepository.findOne({
             where: {
                 value: createAttributeValueDto.value,
-                productDetailId: createAttributeValueDto.productDetailId,
-                attributeId: createAttributeValueDto.attributeId,
+                productDetailId: { id: createAttributeValueDto.productDetailId},
+                attributeId: { id: createAttributeValueDto.attributeId},
             },
         });
         if (findValue) {
@@ -50,7 +50,6 @@ export class AttributeValuesService {
         if (!currValue) {
             throw new NotFoundException('value not found');
         }
-        console.log(currValue);
         return await this.attributeValueRepository.save({
             ...currValue,
             ...updateAttributeValueDto,
