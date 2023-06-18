@@ -26,7 +26,7 @@ export class ProductDetailsService {
             throw new BadRequestException('not admin id in the request');
         }
         const findProductDetail = await this.productDetailRepository.findOne({
-            where: { productId: createProductDetailDto.productId },
+            where: { productId: { id: createProductDetailDto.productId} },
         });
         if (findProductDetail) {
             throw new BadRequestException('product detail is exist in system');

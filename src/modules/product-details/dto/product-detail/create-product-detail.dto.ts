@@ -1,11 +1,9 @@
-import { Type } from 'class-transformer';
-import { Product } from 'src/modules/products/product.entity';
-import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateProductDetailDto {
-    @Type(() => Product)
+    @IsNumber()
     @IsNotEmpty()
-    productId: Product | number;
+    productId: number;
 
     @IsOptional()
     @IsArray()
