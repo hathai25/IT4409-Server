@@ -1,16 +1,16 @@
-import { IsNotEmpty, IsString } from 'class-validator';
-import { ProductDetail } from '../../entities/product-detail.entity';
-import { Type } from 'class-transformer';
-import { AttributeProduct } from '../../entities/attribute-product.entity';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+
 
 export class CreateAtrributeValueDto {
     @IsString()
     @IsNotEmpty()
     value: string;
 
-    @Type(() => ProductDetail)
-    productDetailId: ProductDetail | number;
+   @IsNumber()
+   @IsNotEmpty()
+    productDetailId: number;
 
-    @Type(() => AttributeProduct)
-    attributeId: AttributeProduct | number;
+    @IsNumber()
+    @IsNotEmpty()
+    attributeId:  number;
 }
