@@ -24,7 +24,9 @@ export class AttributeDefaultsService {
         const findAttributeDefault =
             await this.attributeDefaultRepository.findOne({
                 where: {
-                    productDetailId: createAttributeDefaultDto.productDetailId,
+                    productDetailId:{ id:  createAttributeDefaultDto.productDetailId},
+                    color: createAttributeDefaultDto.color,
+                    size: createAttributeDefaultDto.size
                 },
             });
         if (findAttributeDefault) {
