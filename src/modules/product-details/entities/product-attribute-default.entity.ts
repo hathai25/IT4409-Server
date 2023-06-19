@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { BaseCreatedByEntity } from 'src/common/entities';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { ProductDetail } from './product-detail.entity';
@@ -18,6 +18,10 @@ export class ProductAttributeDefault extends BaseCreatedByEntity {
     @Column({ default: 0 })
     @IsInt()
     inventoryNumber: number;
+
+    @Column({ default: 0 })
+    @IsNumber()
+    orderNumber: number;
 
     @Column()
     @IsString()

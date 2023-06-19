@@ -26,6 +26,10 @@ import { ProductAttributeDefault } from './entities/product-attribute-default.en
         AttributeProductsService,
         AttributeValuesService,
     ],
-    exports: [ProductDetailsService, AttributeProductsService],
+    exports: [
+        ProductDetailsService,
+        AttributeProductsService,
+        AttributeDefaultsService,
+    ],
 })
 export class ProductDetailsModule {}

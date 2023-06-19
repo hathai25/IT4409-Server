@@ -1,6 +1,6 @@
-import { IsBoolean, IsNumber, IsOptional, Max, Min } from "class-validator";
-import { BasePageDto } from "src/common/dtos";
-import { Equal, Not } from "typeorm";
+import { IsBoolean, IsNumber, IsOptional, Max, Min } from 'class-validator';
+import { BasePageDto } from 'src/common/dtos';
+import { Equal, Not } from 'typeorm';
 
 export class FilterReviewDto extends BasePageDto {
     @IsOptional()
@@ -10,24 +10,24 @@ export class FilterReviewDto extends BasePageDto {
     rate?: number;
 
     @IsOptional()
-    // @IsBoolean() 
-    isContent? : boolean;
-    
+    // @IsBoolean()
+    isContent?: boolean;
+
     @IsOptional()
     @IsBoolean()
-    isMedia? : boolean;
+    isMedia?: boolean;
 
     get options() {
-        const options: any = {}
-        if(this.rate) {
-            options.rate = Equal(this.rate)
+        const options: any = {};
+        if (this.rate) {
+            options.rate = Equal(this.rate);
         }
-        if(this.isContent) {
-            options.content = Not(null)
+        if (this.isContent) {
+            options.content = Not(null);
         }
         if (this.isMedia) {
-            options.medias = Not(null)
+            options.medias = Not(null);
         }
-        return options
+        return options;
     }
 }

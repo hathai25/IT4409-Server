@@ -1,7 +1,12 @@
 import { BaseCreatedAnUpdatedEntity } from 'src/common/entities';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { User } from './users.entity';
-import { IsBoolean, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import {
+    IsBoolean,
+    IsNotEmpty,
+    IsPhoneNumber,
+    IsString,
+} from 'class-validator';
 
 @Entity()
 export class Address extends BaseCreatedAnUpdatedEntity {
@@ -30,7 +35,7 @@ export class Address extends BaseCreatedAnUpdatedEntity {
     @IsNotEmpty()
     detail: string;
 
-    @Column({ default: false})
+    @Column({ default: false })
     @IsBoolean()
     isDefault: boolean;
 

@@ -1,10 +1,4 @@
-import {
-    Column,
-    Entity,
-    JoinTable,
-    ManyToMany,
-    OneToOne,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToOne } from 'typeorm';
 import { Category } from '../categorys/category.entity';
 import { BaseCreatedByEntity } from 'src/common/entities';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
@@ -34,10 +28,10 @@ export class Product extends BaseCreatedByEntity {
 
     @Column()
     @IsNotEmpty()
-    thumbnail: string
+    thumbnail: string;
 
     @OneToOne(() => ProductDetail, (productDetail) => productDetail.productId)
-    productDetail: ProductDetail
+    productDetail: ProductDetail;
 
     @ManyToMany(() => Category)
     @JoinTable()

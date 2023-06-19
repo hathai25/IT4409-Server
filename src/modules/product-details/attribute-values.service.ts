@@ -24,8 +24,10 @@ export class AttributeValuesService {
         const findValue = await this.attributeValueRepository.findOne({
             where: {
                 value: createAttributeValueDto.value,
-                productDetailId: { id: createAttributeValueDto.productDetailId},
-                attributeId: { id: createAttributeValueDto.attributeId},
+                productDetailId: {
+                    id: createAttributeValueDto.productDetailId,
+                },
+                attributeId: { id: createAttributeValueDto.attributeId },
             },
         });
         if (findValue) {
@@ -78,12 +80,14 @@ export class AttributeValuesService {
         return value;
     }
 
-    async  getAllAttributeValuesByProductDetilId(productDetialId: number): Promise<AttributeProductValue[]> {
-        const values = await this.attributeValueRepository.find({ 
-            where: { productDetailId: { id: productDetialId}}, 
-            relations: { attributeId: true},
-            select: { attributeId: { id: true, name: true}}
-        })
-        return values
-    } 
+    async getAllAttributeValuesByProductDetilId(
+        productDetialId: number,
+    ): Promise<AttributeProductValue[]> {
+        const values = await this.attributeValueRepository.find({
+            where: { productDetailId: { id: productDetialId } },
+            relations: { attributeId: true },
+            select: { attributeId: { id: true, name: true } },
+        });
+        return values;
+    }
 }

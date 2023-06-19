@@ -1,4 +1,10 @@
-import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+    IsArray,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+} from 'class-validator';
 
 export class CreateProductDetailDto {
     @IsNumber()
@@ -7,6 +13,6 @@ export class CreateProductDetailDto {
 
     @IsOptional()
     @IsArray()
-    @IsString({each: true})
-    medias?: string[]
+    @IsString({ each: true })
+    medias?: string[];
 }
