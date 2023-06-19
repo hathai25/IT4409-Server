@@ -7,7 +7,7 @@ import { ProductAttributeDefault } from 'src/modules/product-details/entities/pr
 @Entity()
 export class OrderItem extends BaseCreatedAnUpdatedEntity {
     @ManyToOne(() => ProductAttributeDefault, { onDelete: 'NO ACTION' })
-    productAttributeDefault : ProductAttributeDefault | number;
+    productAttributeDefault: ProductAttributeDefault | number;
 
     @Column({ default: 1 })
     @IsNumber()

@@ -7,7 +7,6 @@ import {
     Min,
 } from 'class-validator';
 
-
 export class UpdateProductDto {
     name?: string;
 
@@ -37,6 +36,6 @@ export class UpdateProductDto {
 
     @IsOptional()
     @IsArray()
-    @IsNumber({}, { each: true})
-    categoriesId: number[]
+    @IsNumber({}, { each: true })
+    categoriesId: number[];
 }

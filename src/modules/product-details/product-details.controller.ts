@@ -19,7 +19,10 @@ import {
     ProductDetailDto,
     UpdateProductDetailDto,
 } from './dto/product-detail';
-import { ISuccessListRespone, ISuccessRespone } from 'src/common/respone/interface';
+import {
+    ISuccessListRespone,
+    ISuccessRespone,
+} from 'src/common/respone/interface';
 import { arrDataToRespone, dataToRespone } from 'src/common/respone/until';
 import { JwtAdminGuard, RolesGuard } from '../admin/guards';
 import { Role } from 'src/common/enum';
@@ -223,34 +226,59 @@ export class ProductDetailsController {
     // get product details
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManageProduct)
-    @Get('attributes') 
+    @Get('attributes')
     async getAllAttribute(): Promise<ISuccessListRespone<AttributeProductDto>> {
-        const attributes = await this.attributeProductsService.getAllAttribute();
-        return arrDataToRespone(AttributeProductDto)(attributes, attributes.length)
+        const attributes =
+            await this.attributeProductsService.getAllAttribute();
+        return arrDataToRespone(AttributeProductDto)(
+            attributes,
+            attributes.length,
+        );
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManageProduct)
-    @Get('values') 
-    async getAllAttributeValueByProductDetailId(@Query('productDetailId') productDetailId: number): Promise<ISuccessListRespone<AttributeProductValueDto>> {
-        const values = await this.attributeValuesService.getAllAttributeValuesByProductDetilId(productDetailId);
-        return arrDataToRespone(AttributeProductValueDto)(values, values.length)
+    @Get('values')
+    async getAllAttributeValueByProductDetailId(
+        @Query('productDetailId') productDetailId: number,
+    ): Promise<ISuccessListRespone<AttributeProductValueDto>> {
+        const values =
+            await this.attributeValuesService.getAllAttributeValuesByProductDetilId(
+                productDetailId,
+            );
+        return arrDataToRespone(AttributeProductValueDto)(
+            values,
+            values.length,
+        );
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManageProduct)
-    @Get('/default-values') 
-    async getAllDefaultAttributesByProductDetilId(@Query('productDetailId') productDetailId: number): Promise<ISuccessListRespone<AttributeDefaultDto>> {
-        const defaultAttributes = await this.attributesDefaultsService.getAllAttributeDefaultByProductDetailId(productDetailId)
-        return arrDataToRespone(AttributeDefaultDto)(defaultAttributes, defaultAttributes.length)
+    @Get('/default-values')
+    async getAllDefaultAttributesByProductDetilId(
+        @Query('productDetailId') productDetailId: number,
+    ): Promise<ISuccessListRespone<AttributeDefaultDto>> {
+        const defaultAttributes =
+            await this.attributesDefaultsService.getAllAttributeDefaultByProductDetailId(
+                productDetailId,
+            );
+        return arrDataToRespone(AttributeDefaultDto)(
+            defaultAttributes,
+            defaultAttributes.length,
+        );
     }
 
     @UseGuards(JwtAdminGuard, RolesGuard)
     @Roles(Role.ManageProduct)
-    @Get('/medias') 
-    async getAllMediaProductDetailById(@Query('productDetailId') productDetailId: number): Promise<ISuccessRespone<ProductDetailDto>> {
-        const productDetail = await this.productDetailsService.getProductMediaById(productDetailId)
-        return dataToRespone(ProductDetailDto)(productDetail)
+    @Get('/medias')
+    async getAllMediaProductDetailById(
+        @Query('productDetailId') productDetailId: number,
+    ): Promise<ISuccessRespone<ProductDetailDto>> {
+        const productDetail =
+            await this.productDetailsService.getProductMediaById(
+                productDetailId,
+            );
+        return dataToRespone(ProductDetailDto)(productDetail);
     }
 
     @Get()
@@ -271,8 +299,7 @@ export class ProductDetailsController {
         const productDetail =
             await this.productDetailsService.getProductDetailById(id);
         return dataToRespone(ProductDetailDto)(productDetail);
-    }  
-
+    }
 
     // end get
 }

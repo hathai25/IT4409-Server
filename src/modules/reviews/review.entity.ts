@@ -6,12 +6,12 @@ import { IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 
 @Entity()
 export class Review extends BaseEntity {
-    @Column({ nullable: true})
+    @Column({ nullable: true })
     @IsOptional()
     @IsString()
     content?: string;
 
-    @Column({ nullable: true})
+    @Column({ nullable: true })
     @IsOptional()
     @IsInt()
     @Min(1)
@@ -22,7 +22,7 @@ export class Review extends BaseEntity {
     medias?: string[];
 
     @ManyToOne(() => Product, { onDelete: 'CASCADE' })
-    productId: Product | number ;
+    productId: Product | number;
 
     @ManyToOne(() => User, {
         onDelete: 'NO ACTION',

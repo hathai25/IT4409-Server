@@ -1,14 +1,14 @@
-import { Expose, Type } from "class-transformer";
-import { PaymentType } from "src/common/enum";
-import { OrderDto } from "src/modules/orders/dto";
+import { Expose, Type } from 'class-transformer';
+import { PaymentType } from 'src/common/enum';
+import { OrderDto } from 'src/modules/orders/dto';
 
 export class TransactionDto {
     @Expose()
     id: number;
 
     @Expose()
-    type: PaymentType
-    
+    type: PaymentType;
+
     @Expose()
     amount: number;
 
@@ -19,7 +19,7 @@ export class TransactionDto {
     description: string;
 
     @Expose()
-    transactionNo: string
+    transactionNo: string;
 
     @Expose()
     payDate: Date;

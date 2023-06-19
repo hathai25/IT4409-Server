@@ -13,10 +13,10 @@ export class ProductDetail extends BaseCreatedByEntity {
     )
     attributeDefaults: ProductAttributeDefault[] | number[];
 
-    @Column({ type: 'simple-array', nullable: true})
+    @Column({ type: 'simple-array', nullable: true })
     @IsArray()
-    @IsString({each: true})
-    medias: string[]
+    @IsString({ each: true })
+    medias: string[];
 
     @OneToMany(
         () => AttributeProductValue,
@@ -24,7 +24,9 @@ export class ProductDetail extends BaseCreatedByEntity {
     )
     attributeValues: AttributeProductValue[] | number[];
 
-    @OneToOne(() => Product, (product) => product.productDetail, { onDelete: 'CASCADE' })
+    @OneToOne(() => Product, (product) => product.productDetail, {
+        onDelete: 'CASCADE',
+    })
     @JoinColumn()
     productId: Product | number;
 }

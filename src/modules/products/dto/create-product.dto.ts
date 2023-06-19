@@ -7,7 +7,6 @@ import {
     Min,
 } from 'class-validator';
 
-
 export class CreateProductDto {
     @IsString()
     @IsNotEmpty()
@@ -30,6 +29,6 @@ export class CreateProductDto {
     thumbnail: string;
 
     @IsArray()
-    @IsNumber({}, { each: true})
-    categoriesId: number[]
+    @IsNumber({}, { each: true })
+    categoriesId: number[];
 }

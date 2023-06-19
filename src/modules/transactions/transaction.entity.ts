@@ -1,4 +1,3 @@
-
 import {
     Column,
     CreateDateColumn,
@@ -9,7 +8,7 @@ import {
 } from 'typeorm';
 import { Order } from '../orders/entities/order.entity';
 import { PaymentType } from 'src/common/enum';
-import {  IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 @Entity()
 export class Transaction {
@@ -37,7 +36,7 @@ export class Transaction {
     @Column()
     @IsString()
     @IsNotEmpty()
-    transactionNo: string
+    transactionNo: string;
 
     @Column()
     payDate: Date;

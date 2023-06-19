@@ -1,4 +1,12 @@
-import { IsArray, IsInt, IsNotEmpty, IsOptional, IsString, Max, Min } from "class-validator";
+import {
+    IsArray,
+    IsInt,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+    Max,
+    Min,
+} from 'class-validator';
 
 export class CreateReviewDto {
     @IsOptional()
@@ -18,5 +26,5 @@ export class CreateReviewDto {
     @IsInt()
     @Min(1)
     @IsNotEmpty()
-    productId: number ;
+    productId: number;
 }

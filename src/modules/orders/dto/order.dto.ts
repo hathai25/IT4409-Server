@@ -1,17 +1,17 @@
-import { Expose, Type } from "class-transformer";
-import { BaseWithDeletedDto } from "src/common/dtos";
-import { BaseCreatedAnUpdatedEntity } from "src/common/entities";
-import { OrderStatus, PaymentType } from "src/common/enum";
-import { AttributeDefaultDto } from "src/modules/product-details/dto/product-attribute-default";
-import { TransactionDto } from "src/modules/transactions/dto";
-import { AddressDto } from "src/modules/users/dtos/address/address.dto";
+import { Expose, Type } from 'class-transformer';
+import { BaseWithDeletedDto } from 'src/common/dtos';
+import { BaseCreatedAnUpdatedEntity } from 'src/common/entities';
+import { OrderStatus, PaymentType } from 'src/common/enum';
+import { AttributeDefaultDto } from 'src/modules/product-details/dto/product-attribute-default';
+import { TransactionDto } from 'src/modules/transactions/dto';
+import { AddressDto } from 'src/modules/users/dtos/address/address.dto';
 
 export class OrderDto extends BaseWithDeletedDto {
     @Expose()
     status: OrderStatus;
 
     @Expose()
-    paymentType: PaymentType
+    paymentType: PaymentType;
 
     @Expose()
     totalMoney: number;
@@ -37,11 +37,11 @@ export class OrderDto extends BaseWithDeletedDto {
 
     @Expose()
     @Type(() => AddressDto)
-    address: AddressDto | number
+    address: AddressDto | number;
 
     @Expose()
     @Type(() => TransactionDto)
-    transations: TransactionDto[] | number[]
+    transations: TransactionDto[] | number[];
 }
 
 export class OrderItemDto extends BaseCreatedAnUpdatedEntity {
@@ -50,5 +50,5 @@ export class OrderItemDto extends BaseCreatedAnUpdatedEntity {
 
     @Expose()
     @Type(() => AttributeDefaultDto)
-    productAttributeDefault: AttributeDefaultDto
+    productAttributeDefault: AttributeDefaultDto;
 }

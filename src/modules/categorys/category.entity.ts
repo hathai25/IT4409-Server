@@ -1,4 +1,4 @@
-import { BaseCreatedByEntity,  } from 'src/common/entities';
+import { BaseCreatedByEntity } from 'src/common/entities';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import {
     IsNotEmpty,
@@ -34,5 +34,4 @@ export class Category extends BaseCreatedByEntity {
     })
     @JoinColumn()
     parentCategory: Category | number | null;
-
 }

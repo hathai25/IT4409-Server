@@ -1,19 +1,19 @@
-import { Expose, Type } from "class-transformer";
-import { BaseWithDeletedDto } from "src/common/dtos";
-import { UserDto } from "src/modules/users/dtos/user";
+import { Expose, Type } from 'class-transformer';
+import { BaseWithDeletedDto } from 'src/common/dtos';
+import { UserDto } from 'src/modules/users/dtos/user';
 
 export class ReviewDto extends BaseWithDeletedDto {
     @Expose()
     content?: string;
 
-    @Expose() 
+    @Expose()
     rate?: number;
 
     @Expose()
     medias?: string[];
 
     @Expose()
-    productId: number ;
+    productId: number;
 
     @Expose()
     @Type(() => UserDto)

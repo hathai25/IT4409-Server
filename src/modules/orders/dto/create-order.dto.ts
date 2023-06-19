@@ -1,20 +1,30 @@
-import { Type } from "class-transformer";
-import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, Min, ValidateNested } from "class-validator";
-import { PaymentType } from "src/common/enum";
+import { Type } from 'class-transformer';
+import {
+    ArrayNotEmpty,
+    IsArray,
+    IsBoolean,
+    IsEnum,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    Min,
+    ValidateNested,
+} from 'class-validator';
+import { PaymentType } from 'src/common/enum';
 
-export class CreateOrderDto {  
+export class CreateOrderDto {
     @IsEnum(PaymentType)
     @IsNotEmpty()
-    paymentType: PaymentType
+    paymentType: PaymentType;
 
     @IsNumber()
     totalMoney: number;
 
     @IsArray()
     @ArrayNotEmpty()
-    @ValidateNested({ each: true})
+    @ValidateNested({ each: true })
     @Type(() => CreateOrderItemDto)
-    orderItems: CreateOrderItemDto[]
+    orderItems: CreateOrderItemDto[];
 
     @IsNumber()
     address: number;

@@ -17,17 +17,17 @@ export class Order extends BaseEntity {
 
     @Column({ default: PaymentType.CASH })
     @IsEnum(PaymentType)
-    paymentType: PaymentType
+    paymentType: PaymentType;
 
     @Column()
     @IsNumber()
     totalMoney: number;
 
-    @Column({ default: false})
+    @Column({ default: false })
     isReview: boolean;
 
     @ManyToOne(() => User, { onDelete: 'NO ACTION' })
-    owerId: User | number ;
+    owerId: User | number;
 
     @ManyToOne(() => Admin, {
         onDelete: 'NO ACTION',
@@ -41,7 +41,7 @@ export class Order extends BaseEntity {
     })
     deletedBy: Admin | number;
 
-    @Column({ nullable: true})
+    @Column({ nullable: true })
     @IsBoolean()
     isCancelByUser: boolean;
 
@@ -53,5 +53,5 @@ export class Order extends BaseEntity {
     address: Address | number;
 
     @OneToMany(() => Transaction, (transation) => transation.orderId)
-    transactions: Transaction[] | number 
-} 
+    transactions: Transaction[] | number;
+}

@@ -1,7 +1,5 @@
 import { IsInt, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 
-
-
 export class CreateAttributeDefaultDto {
     @IsString()
     @IsNotEmpty()

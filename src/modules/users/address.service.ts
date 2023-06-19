@@ -48,7 +48,7 @@ export class AddressService {
 
     async findAllAddressByUserId(userId: number): Promise<Address[]> {
         const currAddress = await this.addressRepository.find({
-            where: { userId: {id: userId} },
+            where: { userId: { id: userId } },
         });
         if (!currAddress.length) {
             throw new InternalServerErrorException(
@@ -83,17 +83,24 @@ export class AddressService {
         return destroyAdress;
     }
 
-    async updateDefaultAddressById(id: number, userId: number): Promise<Address> {
-        const findUpdateDefaultAddress = await this.addressRepository.findOne({ where: { id: id, userId: { id: userId}}})
+    async updateDefaultAddressById(
+        id: number,
+        userId: number,
+    ): Promise<Address> {
+        const findUpdateDefaultAddress = await this.addressRepository.findOne({
+            where: { id: id, userId: { id: userId } },
+        });
         if (!findUpdateDefaultAddress) {
-            throw new NotFoundException('not found address with id: ' + id)
+            throw new NotFoundException('not found address with id: ' + id);
         }
-        const findAddress = await this.addressRepository.find({ where: { userId: {id: userId}, isDefault: true}})
+        const findAddress = await this.addressRepository.find({
+            where: { userId: { id: userId }, isDefault: true },
+        });
         if (findAddress) {
-            findAddress.map(item => item.isDefault = false)
+            findAddress.map((item) => (item.isDefault = false));
         }
-        await this.addressRepository.save(findAddress)
-        findUpdateDefaultAddress.isDefault = true
-        return await this.addressRepository.save(findUpdateDefaultAddress)
+        await this.addressRepository.save(findAddress);
+        findUpdateDefaultAddress.isDefault = true;
+        return await this.addressRepository.save(findUpdateDefaultAddress);
     }
 }

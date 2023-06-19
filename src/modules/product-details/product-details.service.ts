@@ -26,7 +26,7 @@ export class ProductDetailsService {
             throw new BadRequestException('not admin id in the request');
         }
         const findProductDetail = await this.productDetailRepository.findOne({
-            where: { productId: { id: createProductDetailDto.productId} },
+            where: { productId: { id: createProductDetailDto.productId } },
         });
         if (findProductDetail) {
             throw new BadRequestException('product detail is exist in system');
@@ -81,21 +81,27 @@ export class ProductDetailsService {
                     categories: true,
                 },
                 attributeValues: {
-                    attributeId: true
+                    attributeId: true,
                 },
             },
             select: {
                 attributeDefaults: {
-                    id: true, color: true, size: true, inventoryNumber: true, mediaId: true
+                    id: true,
+                    color: true,
+                    size: true,
+                    inventoryNumber: true,
+                    mediaId: true,
                 },
                 attributeValues: {
-                    id: true, value: true,
+                    id: true,
+                    value: true,
                     attributeId: {
-                        id: true, name: true
-                    }
+                        id: true,
+                        name: true,
+                    },
                 },
-                productId: true
-            }
+                productId: true,
+            },
         });
         if (!findProductDetail) {
             throw new NotFoundException('not found product detail');
@@ -124,13 +130,15 @@ export class ProductDetailsService {
     }
 
     async getProductMediaById(id: number): Promise<ProductDetail> {
-        const productDetails = await this.productDetailRepository.findOne({ 
-            where: {id: id}, 
-            select: {id: true, medias: true}
-        })
+        const productDetails = await this.productDetailRepository.findOne({
+            where: { id: id },
+            select: { id: true, medias: true },
+        });
         if (!productDetails) {
-            throw new NotFoundException('not found product detail with product detail: ' + id)
+            throw new NotFoundException(
+                'not found product detail with product detail: ' + id,
+            );
         }
-        return productDetails
+        return productDetails;
     }
 }

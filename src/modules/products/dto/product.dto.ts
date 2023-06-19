@@ -24,7 +24,7 @@ export class ProductDto extends BaseDto {
 
     @Expose()
     @Type(() => ProductDetailDto)
-    productDetail: ProductDetailDto
+    productDetail: ProductDetailDto;
 
     @Expose()
     @Type(() => CategoryDto)

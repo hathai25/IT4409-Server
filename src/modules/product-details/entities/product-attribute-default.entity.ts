@@ -19,7 +19,7 @@ export class ProductAttributeDefault extends BaseCreatedByEntity {
     @IsInt()
     inventoryNumber: number;
 
-    @Column({ default: 0})
+    @Column({ default: 0 })
     @IsNumber()
     orderNumber: number;
 

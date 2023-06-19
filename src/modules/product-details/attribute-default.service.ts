@@ -24,9 +24,11 @@ export class AttributeDefaultsService {
         const findAttributeDefault =
             await this.attributeDefaultRepository.findOne({
                 where: {
-                    productDetailId:{ id:  createAttributeDefaultDto.productDetailId},
+                    productDetailId: {
+                        id: createAttributeDefaultDto.productDetailId,
+                    },
                     color: createAttributeDefaultDto.color,
-                    size: createAttributeDefaultDto.size
+                    size: createAttributeDefaultDto.size,
                 },
             });
         if (findAttributeDefault) {
@@ -88,8 +90,12 @@ export class AttributeDefaultsService {
         return findAttributeDefault;
     }
 
-    async getAllAttributeDefaultByProductDetailId(productDetailId: number): Promise<ProductAttributeDefault[]> {
-        const attributeDefaults = await this.attributeDefaultRepository.find({ where: { productDetailId: { id: productDetailId}}})
-        return attributeDefaults
+    async getAllAttributeDefaultByProductDetailId(
+        productDetailId: number,
+    ): Promise<ProductAttributeDefault[]> {
+        const attributeDefaults = await this.attributeDefaultRepository.find({
+            where: { productDetailId: { id: productDetailId } },
+        });
+        return attributeDefaults;
     }
 }

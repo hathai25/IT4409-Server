@@ -147,7 +147,9 @@ export class CategorysService {
     }
 
     async findCategoriesByIds(ids: number[]): Promise<Category[]> {
-        const categories = await this.categoryRepository.find({ where: { id: In(ids)}})
-        return categories
+        const categories = await this.categoryRepository.find({
+            where: { id: In(ids) },
+        });
+        return categories;
     }
 }

@@ -1,10 +1,16 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { PaymentType } from "src/common/enum";
+import {
+    IsEnum,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+} from 'class-validator';
+import { PaymentType } from 'src/common/enum';
 
 export class CreateTransactionDto {
     @IsOptional()
     @IsEnum(PaymentType)
-    type?: PaymentType
+    type?: PaymentType;
 
     @IsNumber()
     amount: number;
@@ -19,7 +25,7 @@ export class CreateTransactionDto {
 
     @IsString()
     @IsNotEmpty()
-    transactionNo: string
+    transactionNo: string;
 
     @IsString()
     payDate: Date;
