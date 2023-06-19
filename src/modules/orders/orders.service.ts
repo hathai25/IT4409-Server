@@ -438,10 +438,13 @@ export class OrdersService {
         const order = await this.orderRepository.findOne({
             where: { id: id, owerId: { id: owerId } },
             relations: {
-                orderItems: { productAttributeDefault: true },
+                orderItems: { productAttributeDefault: {
+                    productDetailId: { productId: true}
+                } },
                 address: true,
                 transactions: true
             },
+            
         });
         if (!order) {
             throw new NotFoundException("you don't have id with id: " + id);
@@ -470,7 +473,7 @@ export class OrdersService {
             where: { id: id },
             relations: {
                 orderItems: {
-                    productAttributeDefault: true,
+                    productAttributeDefault: { productDetailId: { productId: true}},
                 },
                 owerId: true,
                 address: true,
