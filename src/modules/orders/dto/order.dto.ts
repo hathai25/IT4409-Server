@@ -5,6 +5,7 @@ import { OrderStatus, PaymentType } from 'src/common/enum';
 import { AttributeDefaultDto } from 'src/modules/product-details/dto/product-attribute-default';
 import { TransactionDto } from 'src/modules/transactions/dto';
 import { AddressDto } from 'src/modules/users/dtos/address/address.dto';
+import { UserDto } from 'src/modules/users/dtos/user';
 
 export class OrderDto extends BaseWithDeletedDto {
     @Expose()
@@ -20,7 +21,8 @@ export class OrderDto extends BaseWithDeletedDto {
     isReviews: boolean;
 
     @Expose()
-    owerId: number;
+    @Type(() => UserDto)
+    owerId: UserDto | number;
 
     @Expose()
     updatedBy: number;
