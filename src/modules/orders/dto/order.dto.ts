@@ -3,6 +3,8 @@ import { BaseWithDeletedDto } from "src/common/dtos";
 import { BaseCreatedAnUpdatedEntity } from "src/common/entities";
 import { OrderStatus, PaymentType } from "src/common/enum";
 import { AttributeDefaultDto } from "src/modules/product-details/dto/product-attribute-default";
+import { TransactionDto } from "src/modules/transactions/dto";
+import { AddressDto } from "src/modules/users/dtos/address/address.dto";
 
 export class OrderDto extends BaseWithDeletedDto {
     @Expose()
@@ -15,7 +17,7 @@ export class OrderDto extends BaseWithDeletedDto {
     totalMoney: number;
 
     @Expose()
-    isPay: boolean;
+    isReviews: boolean;
 
     @Expose()
     owerId: number;
@@ -32,6 +34,14 @@ export class OrderDto extends BaseWithDeletedDto {
     @Expose()
     @Type(() => OrderItemDto)
     orderItems: OrderItemDto[];
+
+    @Expose()
+    @Type(() => AddressDto)
+    address: AddressDto | number
+
+    @Expose()
+    @Type(() => TransactionDto)
+    transations: TransactionDto[] | number[]
 }
 
 export class OrderItemDto extends BaseCreatedAnUpdatedEntity {

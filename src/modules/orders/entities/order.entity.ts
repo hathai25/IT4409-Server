@@ -5,6 +5,9 @@ import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { OrderItem } from './order-item.entity';
 import { OrderStatus, PaymentType } from 'src/common/enum';
 import { IsBoolean, IsEnum, IsNumber } from 'class-validator';
+import { Address } from 'src/modules/users/entity';
+import { Type } from 'class-transformer';
+import { Transaction } from 'src/modules/transactions/transaction.entity';
 
 @Entity()
 export class Order extends BaseEntity {
@@ -21,7 +24,7 @@ export class Order extends BaseEntity {
     totalMoney: number;
 
     @Column({ default: false})
-    isPay: boolean;
+    isReview: boolean;
 
     @ManyToOne(() => User, { onDelete: 'NO ACTION' })
     owerId: User | number ;
@@ -44,4 +47,11 @@ export class Order extends BaseEntity {
 
     @OneToMany(() => OrderItem, (orderItem) => orderItem.orderId)
     orderItems: OrderItem[];
-}
+
+    @ManyToOne(() => Address, { onDelete: 'NO ACTION' })
+    @Type(() => Address)
+    address: Address | number;
+
+    @OneToMany(() => Transaction, (transation) => transation.orderId)
+    transactions: Transaction[] | number 
+} 

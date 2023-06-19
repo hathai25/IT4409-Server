@@ -10,15 +10,14 @@ export class CreateOrderDto {
     @IsNumber()
     totalMoney: number;
 
-    @IsOptional()
-    @IsBoolean()
-    isPay: boolean;
-
     @IsArray()
     @ArrayNotEmpty()
     @ValidateNested({ each: true})
     @Type(() => CreateOrderItemDto)
     orderItems: CreateOrderItemDto[]
+
+    @IsNumber()
+    address: number;
 }
 
 export class CreateOrderItemDto {

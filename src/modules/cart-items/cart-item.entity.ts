@@ -13,7 +13,7 @@ export class CartItem extends BaseEntity {
     @ManyToOne(() => ProductAttributeDefault, { onDelete: 'SET NULL' })
     itemId: ProductAttributeDefault | number;
 
-    @OneToOne(() => User)
+    @ManyToOne(() => User)
     @JoinColumn()
     owerId: User | number;
 }
