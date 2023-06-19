@@ -417,7 +417,7 @@ export class OrdersService {
         status: OrderStatus,
         owerId: number,
     ): Promise<Order[]> {
-        if (owerId) {
+        if (!owerId) {
             throw new BadRequestException('not found id user in resquest');
         }
         return await this.orderRepository.find({
