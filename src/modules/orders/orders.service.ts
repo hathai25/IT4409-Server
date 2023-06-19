@@ -440,6 +440,7 @@ export class OrdersService {
             relations: {
                 orderItems: { productAttributeDefault: true },
                 address: true,
+                transactions: true
             },
         });
         if (!order) {
@@ -473,6 +474,7 @@ export class OrdersService {
                 },
                 owerId: true,
                 address: true,
+                transactions: true
             },
         });
     }
