@@ -121,7 +121,7 @@ export class AdminService {
     }
 
     async findAllAdmin(): Promise<Admin[]> {
-        const allAdmin = await this.AdminRepository.find({ withDeleted: true});
+        const allAdmin = await this.AdminRepository.find();
 
         return allAdmin;
     }
