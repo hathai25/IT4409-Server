@@ -101,7 +101,7 @@ export class AdminController {
     @Roles(Role.SuperAdmin)
     @Get()
     async getAllAdmin(): Promise<ISuccessListRespone<AdminDto>> {
-        const allAdmin = await this.adminService.findAllAdminActivities();
+        const allAdmin = await this.adminService.findAllAdmin();
 
         return arrDataToRespone(AdminDto)(allAdmin, allAdmin.length);
     }

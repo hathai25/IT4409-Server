@@ -120,8 +120,8 @@ export class AdminService {
         return destroyAdmin;
     }
 
-    async findAllAdminActivities(): Promise<Admin[]> {
-        const allAdmin = await this.AdminRepository.find();
+    async findAllAdmin(): Promise<Admin[]> {
+        const allAdmin = await this.AdminRepository.find({ withDeleted: true});
 
         return allAdmin;
     }
