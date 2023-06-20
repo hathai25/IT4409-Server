@@ -52,7 +52,7 @@ export class SlidersController {
         @Body() modifyShowDto: ModifyShowDto,
         @Req() req: any,
     ): Promise<ISuccessRespone<SliderDto>> {
-        const updateSlider = await this.modifyShowSliderById(
+        const updateSlider = await this.slidersService.updataSliderById(
             id,
             modifyShowDto,
             req?.user?.adminId,

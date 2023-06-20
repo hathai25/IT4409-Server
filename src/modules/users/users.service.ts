@@ -70,7 +70,9 @@ export class UsersService {
         return await this.userRepository.find({
             where: {
                 ...filterDto.options,
+                deleted: true
             },
+            withDeleted: true,
             skip: filterDto.skip,
             take: filterDto.limit,
         });
