@@ -1,4 +1,5 @@
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsEnum, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 
 export enum SortType {
     ASC = 'ASC',
@@ -8,26 +9,23 @@ export enum SortType {
 export class BasePageDto {
     @IsOptional()
     @IsNumber()
-    readonly page: number;
+    @Min(1)
+    @Transform((v) => +v.value)
+    readonly page = 1;
 
     @IsOptional()
     @IsNumber()
-    readonly limit: number;
+    @Min(1)
+    @Transform((v) => +v.value)
+    readonly limit = 10;
 
     @IsOptional()
     @IsEnum(SortType)
-    readonly sort: SortType;
+    readonly sort = SortType.DESC;
 
     @IsOptional()
     @IsString()
-    readonly sortBy: string;
-
-    constructor(page = 1, limit = 10, sort = SortType.ASC, sortBy = 'id') {
-        this.page = page;
-        this.limit = limit;
-        this.sort = sort;
-        this.sortBy = sortBy;
-    }
+    readonly sortBy = 'createdAt';
 
     get skip() {
         return (this.page - 1) * this.limit;

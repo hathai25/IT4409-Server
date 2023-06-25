@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { BadRequestException, Module, ValidationError, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -34,6 +34,9 @@ import { Slider } from './modules/sliders/slider.entity';
 import { Transaction } from './modules/transactions/transaction.entity';
 import { AuthModule } from './modules/auth/auth.module';
 import { ProductAttributeDefault } from './modules/product-details/entities/product-attribute-default.entity';
+import { PaymentModule } from './modules/payment/payment.module';
+import { APP_PIPE } from '@nestjs/core';
+import { parseValidateErrors } from './common/helper/common';
 
 @Module({
     imports: [
@@ -83,8 +86,23 @@ import { ProductAttributeDefault } from './modules/product-details/entities/prod
         CartItemsModule,
         AdminModule,
         AuthModule,
+        PaymentModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [
+        AppService,
+        {
+            provide: APP_PIPE,
+            useValue: new ValidationPipe({
+              whitelist: true,
+              forbidNonWhitelisted: true,
+              transform: true,
+              exceptionFactory: (validationErrors: ValidationError[] = []) => {
+                const errorMessages = parseValidateErrors(validationErrors);
+                return new BadRequestException(errorMessages);
+              },
+            }),
+        },
+    ],
 })
 export class AppModule {}

@@ -140,6 +140,7 @@ export class ProductsService {
     async getAllProduct(
         filterProductDto: FilterProductDto,
     ): Promise<Product[]> {
+        console.log(filterProductDto.skip)
         return await this.productsRepository.find({
             where: { ...filterProductDto.options },
             skip: filterProductDto.skip,
