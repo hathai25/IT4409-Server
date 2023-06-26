@@ -14,7 +14,8 @@ import { UpdateAddressDto } from './dtos/address/update-address.dto';
 @Injectable()
 export class AddressService {
     constructor(
-        @InjectRepository(Address) private readonly addressRepository: Repository<Address>,
+        @InjectRepository(Address)
+        private readonly addressRepository: Repository<Address>,
         private readonly usersService: UsersService,
     ) {}
 
@@ -23,12 +24,12 @@ export class AddressService {
         userId: number,
     ): Promise<Address> {
         try {
-            const newAddress = await this.addressRepository.create({
+            const newAddress = this.addressRepository.create({
                 ...createAddresDto,
                 userId: userId,
             });
 
-            return newAddress;
+            return await this.addressRepository.save(newAddress);
         } catch (error) {
             throw new HttpException(`don't create address`, 500, {
                 cause: error,
@@ -47,7 +48,7 @@ export class AddressService {
 
     async findAllAddressByUserId(userId: number): Promise<Address[]> {
         const currAddress = await this.addressRepository.find({
-            where: { userId: userId },
+            where: { userId: { id: userId } },
         });
         if (!currAddress.length) {
             throw new InternalServerErrorException(
@@ -61,7 +62,6 @@ export class AddressService {
     async updateAddressById(
         updateAddressDto: UpdateAddressDto,
         addressId: number,
-        userId: number,
     ): Promise<Address> {
         const currAddress = await this.findAddressById(addressId);
         const updateAddress = await this.addressRepository.save({
@@ -81,5 +81,26 @@ export class AddressService {
             );
         }
         return destroyAdress;
+    }
+
+    async updateDefaultAddressById(
+        id: number,
+        userId: number,
+    ): Promise<Address> {
+        const findUpdateDefaultAddress = await this.addressRepository.findOne({
+            where: { id: id, userId: { id: userId } },
+        });
+        if (!findUpdateDefaultAddress) {
+            throw new NotFoundException('not found address with id: ' + id);
+        }
+        const findAddress = await this.addressRepository.find({
+            where: { userId: { id: userId }, isDefault: true },
+        });
+        if (findAddress) {
+            findAddress.map((item) => (item.isDefault = false));
+        }
+        await this.addressRepository.save(findAddress);
+        findUpdateDefaultAddress.isDefault = true;
+        return await this.addressRepository.save(findUpdateDefaultAddress);
     }
 }

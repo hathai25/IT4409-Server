@@ -1,5 +1,5 @@
 import {
-    IsEmail,
+    IsBoolean,
     IsNotEmpty,
     IsOptional,
     IsPhoneNumber,
@@ -16,6 +16,10 @@ export class UpdateUserDto {
     @IsOptional()
     @IsPhoneNumber('VN')
     readonly phone?: string;
+
+    @IsOptional()
+    @IsBoolean()
+    readonly isActivity?: boolean;
 
     @IsOptional()
     @IsUrl()

@@ -24,6 +24,11 @@ export class UpdateAddressDto {
     @IsOptional()
     @IsString()
     @IsNotEmpty()
+    commune?: string;
+
+    @IsOptional()
+    @IsString()
+    @IsNotEmpty()
     detail?: string;
 
     @IsOptional()
@@ -32,6 +37,6 @@ export class UpdateAddressDto {
     fullname?: string;
 
     @IsOptional()
-    @IsPhoneNumber()
+    @IsPhoneNumber('VN')
     phone?: string;
 }

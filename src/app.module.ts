@@ -28,13 +28,12 @@ import { Order } from './modules/orders/entities/order.entity';
 import { AttributeProduct } from './modules/product-details/entities/attribute-product.entity';
 import { AttributeProductValue } from './modules/product-details/entities/attribute-product-value.entity';
 import { ProductDetail } from './modules/product-details/entities/product-detail.entity';
-import { ProductDetailMedia } from './modules/product-details/entities/product-detail-media.entity';
 import { Product } from './modules/products/product.entity';
-import { Review } from './modules/reviews/entities/review.entity';
-import { ReviewMedia } from './modules/reviews/entities/reivew-media';
+import { Review } from './modules/reviews/review.entity';
 import { Slider } from './modules/sliders/slider.entity';
 import { Transaction } from './modules/transactions/transaction.entity';
 import { AuthModule } from './modules/auth/auth.module';
+import { ProductAttributeDefault } from './modules/product-details/entities/product-attribute-default.entity';
 
 @Module({
     imports: [
@@ -63,10 +62,9 @@ import { AuthModule } from './modules/auth/auth.module';
                 AttributeProduct,
                 AttributeProductValue,
                 ProductDetail,
-                ProductDetailMedia,
+                ProductAttributeDefault,
                 Product,
                 Review,
-                ReviewMedia,
                 Slider,
                 Transaction,
             ],

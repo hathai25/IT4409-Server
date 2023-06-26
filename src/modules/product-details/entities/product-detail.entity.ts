@@ -1,37 +1,32 @@
 import { BaseCreatedByEntity } from 'src/common/entities';
 import { Product } from 'src/modules/products/product.entity';
-import {
-    Column,
-    Entity,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
-import { ProductDetailMedia } from './product-detail-media.entity';
-import { IsIn, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import { ProductAttributeDefault } from './product-attribute-default.entity';
+import { AttributeProductValue } from './attribute-product-value.entity';
+import { IsArray, IsString } from 'class-validator';
 
 @Entity()
 export class ProductDetail extends BaseCreatedByEntity {
-    @Column()
-    @IsString()
-    @IsNotEmpty()
-    color: string;
+    @OneToMany(
+        () => ProductAttributeDefault,
+        (productAttributeDefault) => productAttributeDefault.productDetailId,
+    )
+    attributeDefaults: ProductAttributeDefault[] | number[];
 
-    @Column()
-    @IsString()
-    @IsNotEmpty()
-    size: string;
-
-    @Column({ default: 0 })
-    @IsInt()
-    inventoryNumber: number;
+    @Column({ type: 'simple-array', nullable: true })
+    @IsArray()
+    @IsString({ each: true })
+    medias: string[];
 
     @OneToMany(
-        () => ProductDetailMedia,
-        (producDetailMedia) => producDetailMedia.productDetailId,
+        () => AttributeProductValue,
+        (attributeProductValue) => attributeProductValue.productDetailId,
     )
-    medias: ProductDetailMedia[];
+    attributeValues: AttributeProductValue[] | number[];
 
-    @ManyToOne(() => Product, { onDelete: 'CASCADE' })
-    productId: Product;
+    @OneToOne(() => Product, (product) => product.productDetail, {
+        onDelete: 'CASCADE',
+    })
+    @JoinColumn()
+    productId: Product | number;
 }

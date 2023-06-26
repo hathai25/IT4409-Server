@@ -13,22 +13,14 @@ export class Media {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    @IsString()
-    @MaxLength(50)
-    name: string;
-
     @Column({ nullable: true })
     @IsString()
-    description: string;
+    @MaxLength(50)
+    description?: string;
 
     @Column()
     @IsEnum(MediaType)
     type: MediaType;
-
-    @Column()
-    @IsNumber()
-    size: number;
 
     @Column()
     @IsString()

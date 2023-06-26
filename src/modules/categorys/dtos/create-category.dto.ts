@@ -1,12 +1,12 @@
-import { Type } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { Category } from "../category.entity";
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Category } from '../category.entity';
 
 export class CreateCategoryDto {
     @IsString()
     @IsNotEmpty()
-    name: string; 
-    
+    name: string;
+
     @IsNumber()
     @IsNotEmpty()
     order: number;
@@ -18,5 +18,5 @@ export class CreateCategoryDto {
 
     @IsOptional()
     @Type(() => Category)
-    parentCategory: Category | number | null
+    parentCategory: Category | number | null;
 }

@@ -1,30 +1,53 @@
-import { BaseEntity } from 'src/common/entities';
 import {
     Column,
+    CreateDateColumn,
     Entity,
     JoinColumn,
-    OneToOne,
+    ManyToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Order } from '../orders/entities/order.entity';
-import { PaymentType, TransactionStatus } from 'src/common/enum';
-import { IsEnum } from 'class-validator';
+import { PaymentType } from 'src/common/enum';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-// cập nhật sau
 @Entity()
-export class Transaction extends BaseEntity {
-    @Column({ default: PaymentType.CASH })
+export class Transaction {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ default: PaymentType.VNPAY })
     @IsEnum(PaymentType)
-    type: PaymentType;
+    type?: PaymentType;
 
-    @Column({ default: TransactionStatus.UNPAID })
-    @IsEnum(TransactionStatus)
-    status: TransactionStatus;
+    @Column()
+    @IsNumber()
+    amount: number;
 
-    @OneToOne(() => Order, {
+    @Column()
+    @IsString()
+    @IsNotEmpty()
+    bankCode: string;
+
+    @Column()
+    @IsString()
+    @IsNotEmpty()
+    description: string;
+
+    @Column()
+    @IsString()
+    @IsNotEmpty()
+    transactionNo: string;
+
+    @Column()
+    payDate: Date;
+
+    @CreateDateColumn()
+    createAt: Date;
+
+    @ManyToOne(() => Order, {
         onDelete: 'NO ACTION',
         orphanedRowAction: 'disable',
     })
     @JoinColumn()
-    orderId: Order;
+    orderId: Order | number;
 }

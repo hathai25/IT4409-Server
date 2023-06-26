@@ -15,12 +15,16 @@ export class CreateAddressDto {
 
     @IsString()
     @IsNotEmpty()
+    commune: string;
+
+    @IsString()
+    @IsNotEmpty()
     readonly detail: string;
 
     @IsString()
     @IsNotEmpty()
     readonly fullname: string;
 
-    @IsPhoneNumber()
+    @IsPhoneNumber('VN')
     readonly phone: string;
 }
